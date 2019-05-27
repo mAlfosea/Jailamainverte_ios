@@ -34,11 +34,15 @@ class MainTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath)
-
-        // Configure the cell...
-        cell.textLabel?.text = UserData.getInstance()._plantsArray[indexPath.row]._plantName
-        cell.detailTextLabel?.text = UserData.getInstance()._plantsArray[indexPath.row]._plantFamily
+       /* let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath)*/
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath) as? PlantTableViewCell else {
+            fatalError("ERROR")
+        }
+        let plant = UserData.getInstance()._plantsArray[indexPath.row]
+        
+        cell.ui_plant_name.text = plant._plantName
+        cell.ui_plant_family.text = plant._plantFamily
 
         return cell
     }
