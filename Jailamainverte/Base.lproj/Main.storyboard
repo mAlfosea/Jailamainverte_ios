@@ -10,20 +10,112 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Ajouter une plante-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Jailamainverte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AddPlantViewController" customModule="Jailamainverte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plantCard_plant_img" translatesAutoresizingMaskIntoConstraints="NO" id="Qr7-aM-cTN">
+                                <rect key="frame" x="132" y="64" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="6M3-qm-PiY"/>
+                                    <constraint firstAttribute="height" constant="150" id="Frj-Vn-qMZ"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Famille" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-dM-tX6">
+                                <rect key="frame" x="174" y="284" width="66" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Dernier arrosage" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gPs-Y5-14J">
+                                <rect key="frame" x="142.5" y="334" width="129.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cycle d'arrosage" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sec-L3-IEd">
+                                <rect key="frame" x="142" y="384" width="130" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Heure d'arrosage" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agh-sh-fe3">
+                                <rect key="frame" x="140.5" y="434" width="133" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbM-8c-Fxy">
+                                <rect key="frame" x="177.5" y="504" width="59" height="34"/>
+                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Ajouter"/>
+                                <connections>
+                                    <action selector="addButtonSubmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a8i-qv-yEb"/>
+                                    <segue destination="tfT-59-E8N" kind="show" identifier="addPlant" id="I9R-rY-YWy"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom: Géronimo" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bt-SC-g2Z">
+                                <rect key="frame" x="50" y="234" width="314" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUv-i1-hHc">
+                                <rect key="frame" x="255" y="187" width="22" height="22"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45i-in-dgY">
+                                <rect key="frame" x="276" y="338" width="22" height="22"/>
+                                <connections>
+                                    <action selector="changeDateClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zw5-7r-4mL"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9bt-SC-g2Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3ve-Z8-XHo"/>
+                            <constraint firstItem="gPs-Y5-14J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9vH-ny-7BK"/>
+                            <constraint firstItem="Agh-sh-fe3" firstAttribute="top" secondItem="Sec-L3-IEd" secondAttribute="bottom" constant="20" id="BkG-SO-oXj"/>
+                            <constraint firstItem="Sec-L3-IEd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DO0-xl-eE7"/>
+                            <constraint firstItem="Qr7-aM-cTN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GlM-zC-1UA"/>
+                            <constraint firstItem="45i-in-dgY" firstAttribute="leading" secondItem="gPs-Y5-14J" secondAttribute="trailing" constant="4" id="Klq-A2-3XR"/>
+                            <constraint firstItem="wbM-8c-Fxy" firstAttribute="top" secondItem="Agh-sh-fe3" secondAttribute="bottom" constant="40" id="NYw-Sj-Qbo"/>
+                            <constraint firstItem="9bt-SC-g2Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="UW9-49-JrF"/>
+                            <constraint firstItem="gPs-Y5-14J" firstAttribute="top" secondItem="Nli-dM-tX6" secondAttribute="bottom" constant="20" id="VSS-8M-axR"/>
+                            <constraint firstItem="vUv-i1-hHc" firstAttribute="trailing" secondItem="Qr7-aM-cTN" secondAttribute="trailing" constant="-5" id="VaI-jm-8IA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9bt-SC-g2Z" secondAttribute="trailing" constant="50" id="W6n-aS-SfG"/>
+                            <constraint firstItem="Sec-L3-IEd" firstAttribute="top" secondItem="gPs-Y5-14J" secondAttribute="bottom" constant="20" id="WS5-XF-kV5"/>
+                            <constraint firstItem="wbM-8c-Fxy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YTZ-yi-d9U"/>
+                            <constraint firstItem="Nli-dM-tX6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eer-13-oGf"/>
+                            <constraint firstItem="vUv-i1-hHc" firstAttribute="bottom" secondItem="Qr7-aM-cTN" secondAttribute="bottom" constant="-5" id="fY2-t2-AXt"/>
+                            <constraint firstItem="Qr7-aM-cTN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="faI-Bn-qoa"/>
+                            <constraint firstItem="45i-in-dgY" firstAttribute="centerY" secondItem="gPs-Y5-14J" secondAttribute="centerY" id="fg9-ew-5H5"/>
+                            <constraint firstItem="Nli-dM-tX6" firstAttribute="top" secondItem="9bt-SC-g2Z" secondAttribute="bottom" constant="20" id="hFm-55-jes"/>
+                            <constraint firstItem="9bt-SC-g2Z" firstAttribute="top" secondItem="Qr7-aM-cTN" secondAttribute="bottom" constant="20" id="lyD-8g-k32"/>
+                            <constraint firstItem="Agh-sh-fe3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qU4-Cv-hOp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Ajouter une plante" id="OOj-Kc-hb2"/>
+                    <connections>
+                        <outlet property="ui_change_photo_button" destination="vUv-i1-hHc" id="Bll-pe-Gn7"/>
+                        <outlet property="ui_last_watering_field" destination="gPs-Y5-14J" id="49c-zw-cAz"/>
+                        <outlet property="ui_plant_family_field" destination="Nli-dM-tX6" id="hsn-jR-X7u"/>
+                        <outlet property="ui_plant_img" destination="Qr7-aM-cTN" id="6i6-la-Bqh"/>
+                        <outlet property="ui_plant_name_label" destination="9bt-SC-g2Z" id="ahZ-gp-el1"/>
+                        <outlet property="ui_select_date_button" destination="45i-in-dgY" id="nLM-bc-HNR"/>
+                        <outlet property="ui_submit_button" destination="wbM-8c-Fxy" id="dUJ-Yk-s8e"/>
+                        <outlet property="ui_watering_cycle_field" destination="Sec-L3-IEd" id="r3K-Ob-91J"/>
+                        <outlet property="ui_watering_hour_field" destination="Agh-sh-fe3" id="MMC-jp-lcu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2642" y="117"/>
+            <point key="canvasLocation" x="2640.579710144928" y="116.51785714285714"/>
         </scene>
         <!--Mes plantes-->
         <scene sceneID="RoG-a7-DmC">
@@ -131,7 +223,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Mes plantes" id="J2h-Df-OiQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wvv-8y-zCM"/>
+                        <barButtonItem key="backBarButtonItem" title="Retour" id="aGq-dV-6pW"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wvv-8y-zCM">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" id="H4x-0b-vFv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNx-jC-fqN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -168,4 +265,7 @@
         <image name="loupe" width="32" height="32"/>
         <image name="plantCard_plant_img" width="350" height="350"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="I9R-rY-YWy"/>
+    </inferredMetricsTieBreakers>
 </document>

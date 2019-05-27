@@ -10,6 +10,8 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
 
+    var datasUpdated: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +28,16 @@ class MainTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }*/
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if (datasUpdated) {
+           // let indexPath = IndexPath(row: UserData.getInstance()._plantsArray.count - 1, section: 0)
+           // tableView.insertRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+            datasUpdated = false
+        }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows

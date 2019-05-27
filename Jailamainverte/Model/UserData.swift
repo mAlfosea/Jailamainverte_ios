@@ -28,5 +28,7 @@ class UserData {
         return instance!
     }
     
-    
+    func addPlant (plant: Plant) {
+        _plantsArray.append(plant)
+    }
 }
