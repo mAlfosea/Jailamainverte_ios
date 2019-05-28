@@ -32,9 +32,8 @@ class MainTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if (datasUpdated) {
-           // let indexPath = IndexPath(row: UserData.getInstance()._plantsArray.count - 1, section: 0)
-           // tableView.insertRows(at: [indexPath], with: .automatic)
-            tableView.reloadData()
+            let indexPath = IndexPath(row: UserData.getInstance()._plantsArray.count - 1, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
             datasUpdated = false
         }
     }
@@ -44,7 +43,6 @@ class MainTableViewController: UITableViewController {
         return UserData.getInstance()._plantsArray.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        /* let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath)*/
         
