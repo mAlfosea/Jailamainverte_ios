@@ -29,7 +29,6 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let datePicker = UIDatePicker()
     let hourPicker = UIDatePicker()
     let familyPicker = UIPickerView()
-    let pickerData = ["Rose", "Jacynthe", "Géranium", "Lila"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +48,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         familyPicker.dataSource = self
         
         ui_plant_name_label.delegate = self
-        ui_watering_cycle_label.text = String(_wateringCycle) + "j"
+        ui_watering_cycle_label.text = String(_wateringCycle) + UserData.getInstance().dayMinString
         ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         ui_submit_button.layer.cornerRadius = 5
         ui_plant_img.layer.cornerRadius = 5
@@ -79,13 +78,39 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func downCycleButtonClicked(_ sender: Any) {
         if _wateringCycle > 1 {
             _wateringCycle -= 1
-            ui_watering_cycle_label.text = String(_wateringCycle) + "j"
+            ui_watering_cycle_label.text = String(_wateringCycle) + UserData.getInstance().dayMinString
         }
     }
     
     @IBAction func upCycleButtonClicked(_ sender: Any) {
             _wateringCycle += 1
-            ui_watering_cycle_label.text = String(_wateringCycle) + "j"
+            ui_watering_cycle_label.text = String(_wateringCycle) + UserData.getInstance().dayMinString
+    }
+    
+    @IBAction func changePhotoButtonClicked(_ sender: Any) {
+        let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        
+        let takePictureFromCamera = UIAlertAction(title: UserData.getInstance().selectPictureFromCameraString, style: .default) { (_) in
+            //code pour prendre une photo
+        }
+        let cameraIcon = UIImage(named: "edit")
+        takePictureFromCamera.setValue(cameraIcon, forKey: "image")
+        takePictureFromCamera.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+        changePictureAlert.addAction(takePictureFromCamera)
+        
+        let takePictureFromLibrary = UIAlertAction(title: UserData.getInstance().selectPictureFromLibraryString, style: .default) { (_) in
+            //code pour choisir depuis la librairie
+        }
+        let libraryIcon = UIImage(named: "loupe")
+        takePictureFromLibrary.setValue(libraryIcon, forKey: "image")
+        takePictureFromLibrary.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+        changePictureAlert.addAction(takePictureFromLibrary)
+        
+        changePictureAlert.addAction(UIAlertAction(title: UserData.getInstance().cancelButtonString, style: .cancel, handler: nil))
+        changePictureAlert.view.tintColor = UIColor.black
+        present(changePictureAlert, animated: true, completion: nil)
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -99,13 +124,14 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     
     func showDatePicker(){
-        datePicker.datePickerMode = .dateAndTime
+        datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
+        let doneButton = UIBarButtonItem(title: UserData.getInstance().doneButtonString, style: .plain, target: self, action: #selector(doneDatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        let cancelButton = UIBarButtonItem(title: UserData.getInstance().cancelButtonString, style: .plain, target: self, action: #selector(cancelDatePicker))
         
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
@@ -133,12 +159,13 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     func showHourPicker(){
         hourPicker.datePickerMode = .time
+        hourPicker.minuteInterval = 30
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneHourPicker))
+        let doneButton = UIBarButtonItem(title: UserData.getInstance().doneButtonString, style: .plain, target: self, action: #selector(doneHourPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelHourPicker))
+        let cancelButton = UIBarButtonItem(title: UserData.getInstance().cancelButtonString, style: .plain, target: self, action: #selector(cancelHourPicker))
         
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
@@ -148,7 +175,8 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @objc func doneHourPicker(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:00"
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
         _wateringHour = hourPicker.date
         ui_watering_hour_field.text = formatter.string(from: hourPicker.date)
         self.view.endEditing(true)
@@ -163,9 +191,9 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneFamilyPicker))
+        let doneButton = UIBarButtonItem(title: UserData.getInstance().doneButtonString, style: .plain, target: self, action: #selector(doneFamilyPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelFamilyPicker))
+        let cancelButton = UIBarButtonItem(title: UserData.getInstance().cancelButtonString, style: .plain, target: self, action: #selector(cancelFamilyPicker))
         
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
@@ -189,13 +217,13 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        return UserData.getInstance()._plantsFamily.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+        return UserData.getInstance()._plantsFamily[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        _plantFamily = pickerData[row]
+        _plantFamily = UserData.getInstance()._plantsFamily[row]
         ui_plant_family_field.text = _plantFamily
     }
 }

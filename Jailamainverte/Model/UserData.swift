@@ -11,12 +11,15 @@ import Foundation
 class UserData {
     
     private static var instance: UserData? = nil
-    var _plantsArray: [Plant] = [/*Plant(newName: "Geronimo", newFamily: "Geranium", newLastArrosage: Date.init(timeIntervalSinceReferenceDate: 86400.0), newArrosageCycle: 3, newArrosageHour: Date.init(timeIntervalSinceReferenceDate: 86400.0)),
-                        Plant(newName: "Bobby", newFamily: "Lila", newLastArrosage: nil, newArrosageCycle: 3, newArrosageHour: nil),
-                        Plant(newName: "Billy", newFamily: "Rose", newLastArrosage: nil, newArrosageCycle: 3, newArrosageHour: nil),
-                        Plant(newName: "Steven", newFamily: "Jacynthe", newLastArrosage: nil, newArrosageCycle: 3, newArrosageHour: nil),
-                        Plant(newName: "Jack", newFamily: "Mauvaise Herbe", newLastArrosage: nil, newArrosageCycle: 3, newArrosageHour: nil)*/]
+    var _plantsArray: [Plant] = [Plant(newName: "Geronimo", newFamily: "Geranium", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())]
+    let _plantsFamily: [String] = ["Rose", "Jacynthe", "Géranium", "Lila"]
     
+    let dayMinString: String = NSLocalizedString("d", comment: "diminutif pour l'unite jour")
+    let doneButtonString: String = NSLocalizedString("Done", comment: "boutton done pour les toolbars")
+    let cancelButtonString: String = NSLocalizedString("Cancel", comment: "boutton cancel pour les toolbars")
+    let selectPictureFromCameraString: String = NSLocalizedString("Camera", comment: "bouton pour prendre une photo avec l'apareil photo")
+    let selectPictureFromLibraryString: String = NSLocalizedString("Photo Library", comment: "bouton pour prendre une photo depuis la librairie")
+   
     private init() {
         //_plantsArray = (count > 5) ? ok : null 
     }

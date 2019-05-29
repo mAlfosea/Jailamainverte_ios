@@ -1,0 +1,39 @@
+
+/* Class = "UITextField"; placeholder = "Name: Rosy"; ObjectID = "9bt-SC-g2Z"; */
+"9bt-SC-g2Z.placeholder" = "Name: Rosy";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "Clm-VV-L0I"; */
+"Clm-VV-L0I.normalTitle" = "+";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "INQ-fz-7ns"; */
+"INQ-fz-7ns.normalTitle" = "Back";
+
+/* Class = "UINavigationItem"; title = "My plants"; ObjectID = "J2h-Df-OiQ"; */
+"J2h-Df-OiQ.title" = "My plants";
+
+/* Class = "UITextField"; placeholder = "Family: rose"; ObjectID = "Nli-dM-tX6"; */
+"Nli-dM-tX6.placeholder" = "Family: rose";
+
+/* Class = "UINavigationItem"; title = "Ajouter une plante"; ObjectID = "OOj-Kc-hb2"; */
+"OOj-Kc-hb2.title" = "Ajouter une plante";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "aGq-dV-6pW"; */
+"aGq-dV-6pW.title" = "Back";
+
+/* Class = "UILabel"; text = "Watering cycle"; ObjectID = "fUI-68-Ia9"; */
+"fUI-68-Ia9.text" = "Watering cycle";
+
+/* Class = "UILabel"; text = "Last watering"; ObjectID = "ffn-Sn-N1o"; */
+"ffn-Sn-N1o.text" = "Last watering";
+
+/* Class = "UIButton"; normalTitle = "-"; ObjectID = "hmZ-C5-Apa"; */
+"hmZ-C5-Apa.normalTitle" = "-";
+
+/* Class = "UILabel"; text = "Add a plant"; ObjectID = "i3g-zR-8JN"; */
+"i3g-zR-8JN.text" = "Add a plant";
+
+/* Class = "UILabel"; text = "Plant family"; ObjectID = "vdv-XM-ukC"; */
+"vdv-XM-ukC.text" = "Plant family";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "wbM-8c-Fxy"; */
+"wbM-8c-Fxy.normalTitle" = "Add";
