@@ -27,5 +27,18 @@ class PlantTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func display(plant: Plant) {
+        ui_plant_name.text = plant._plantName
+        ui_plant_family.text = plant._plantFamily
+        changePlantImg(plantName: plant._plantImgPath)
+    }
 
+    func changePlantImg(plantName: String) {
+        if let plantImage = getImage(imageName: plantName) {
+            ui_plant_img.image = plantImage
+            ui_plant_img.contentMode = UIView.ContentMode.scaleToFill
+            ui_plant_img.clipsToBounds = true
+        }
+    }
 }

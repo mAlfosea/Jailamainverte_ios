@@ -18,5 +18,9 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The application needs to use the camera of the device</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The application needs to use your photos</string>
 </dict>
 </plist>

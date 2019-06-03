@@ -48,11 +48,8 @@ class MainTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath) as? PlantTableViewCell else {
             fatalError("ERROR")
         }
-        let plant = UserData.getInstance()._plantsArray[indexPath.row]
+        cell.display(plant: UserData.getInstance()._plantsArray[indexPath.row])
         
-        cell.ui_plant_name.text = plant._plantName
-        cell.ui_plant_family.text = plant._plantFamily
-
         return cell
     }
     

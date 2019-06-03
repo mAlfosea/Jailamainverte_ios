@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate  {
+class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate  {
     
     @IBOutlet weak var ui_plant_img: UIImageView!
     @IBOutlet weak var ui_plant_name_label: UITextField!
@@ -29,6 +29,8 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let datePicker = UIDatePicker()
     let hourPicker = UIDatePicker()
     let familyPicker = UIPickerView()
+    
+    var _imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +58,10 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @IBAction func addButtonSubmit(_ sender: Any) {
-        let plant: Plant = Plant(newName: _plantName, newFamily: _plantFamily, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+        let plantImgName: String = "plant_\(UserData.getInstance()._plantsArray.count).png"
+        saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
+        
+        let plant: Plant = Plant(newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
         UserData.getInstance().addPlant(plant: plant)
         
         if let navController = presentingViewController as? UINavigationController,
@@ -70,8 +75,13 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func changeFamilylicked(_ sender: Any) {
+        //ui_plant_family_field.isEnabled = true
+        ui_plant_family_field.becomeFirstResponder()
+    }
+    
     @IBAction func changeDateClicked(_ sender: Any) {
-        ui_last_watering_field.isEnabled = true
+        //ui_last_watering_field.isEnabled = true
         ui_last_watering_field.becomeFirstResponder()
     }
     
@@ -90,17 +100,17 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func changePhotoButtonClicked(_ sender: Any) {
         let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        
         let takePictureFromCamera = UIAlertAction(title: UserData.getInstance().selectPictureFromCameraString, style: .default) { (_) in
-            //code pour prendre une photo
+            self.callImagePicker(state: true)
         }
         let cameraIcon = UIImage(named: "edit")
         takePictureFromCamera.setValue(cameraIcon, forKey: "image")
         takePictureFromCamera.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
         changePictureAlert.addAction(takePictureFromCamera)
         
+        
         let takePictureFromLibrary = UIAlertAction(title: UserData.getInstance().selectPictureFromLibraryString, style: .default) { (_) in
-            //code pour choisir depuis la librairie
+            self.callImagePicker(state: false)
         }
         let libraryIcon = UIImage(named: "loupe")
         takePictureFromLibrary.setValue(libraryIcon, forKey: "image")
@@ -109,8 +119,8 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         changePictureAlert.addAction(UIAlertAction(title: UserData.getInstance().cancelButtonString, style: .cancel, handler: nil))
         changePictureAlert.view.tintColor = UIColor.black
+        
         present(changePictureAlert, animated: true, completion: nil)
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -121,7 +131,34 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return true
     }
     
-    
+    func callImagePicker(state: Bool) {
+        _imagePicker = UIImagePickerController()
+        _imagePicker.delegate = self
+        
+        if state {
+            if UIImagePickerController.isSourceTypeAvailable(.camera)  {
+                _imagePicker.allowsEditing = true
+                _imagePicker.sourceType = .camera
+            }
+        } else {
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)  {
+                _imagePicker.allowsEditing = true
+                _imagePicker.sourceType = .photoLibrary
+            }
+        }
+        present(_imagePicker, animated: true, completion: nil)
+    }
+  
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        _imagePicker.dismiss(animated: true, completion: nil)
+        ui_plant_img.image = info[.editedImage] as? UIImage
+        ui_plant_img.contentMode = UIView.ContentMode.scaleToFill
+        ui_plant_img.clipsToBounds = true
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        _imagePicker.dismiss(animated: true, completion: nil)
+    }
     
     func showDatePicker(){
         datePicker.datePickerMode = .date
@@ -140,8 +177,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func doneDatePicker(){
-        
-        ui_last_watering_field.isEnabled = false
+        //ui_last_watering_field.isEnabled = false
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         _lastWatering = datePicker.date
@@ -150,8 +186,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func cancelDatePicker(){
-        ui_last_watering_field.isEnabled = false
-        
+        //ui_last_watering_field.isEnabled = false
         self.view.endEditing(true)
     }
     
@@ -202,13 +237,12 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func doneFamilyPicker(){
-        ui_plant_family_field.isEnabled = false
+        //ui_plant_family_field.isEnabled = false
         self.view.endEditing(true)
     }
     
     @objc func cancelFamilyPicker(){
-        ui_plant_family_field.isEnabled = false
-        
+        //ui_plant_family_field.isEnabled = false
         self.view.endEditing(true)
     }
     

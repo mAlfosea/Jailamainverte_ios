@@ -11,8 +11,8 @@ import Foundation
 class UserData {
     
     private static var instance: UserData? = nil
-    var _plantsArray: [Plant] = [Plant(newName: "Geronimo", newFamily: "Geranium", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())]
-    let _plantsFamily: [String] = ["Rose", "Jacynthe", "Géranium", "Lila"]
+    var _plantsArray: [Plant] = [Plant(newName: "Geronimo", newFamily: "Geranium", newPlantImgPath: "plant_0.png", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())]
+    let _plantsFamily: [String] = ["Aucune", "Rose", "Jacynthe", "Géranium", "Lila"]
     
     let dayMinString: String = NSLocalizedString("d", comment: "diminutif pour l'unite jour")
     let doneButtonString: String = NSLocalizedString("Done", comment: "boutton done pour les toolbars")
@@ -21,7 +21,7 @@ class UserData {
     let selectPictureFromLibraryString: String = NSLocalizedString("Photo Library", comment: "bouton pour prendre une photo depuis la librairie")
    
     private init() {
-        //_plantsArray = (count > 5) ? ok : null 
+        //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire
     }
     
     static func getInstance() -> UserData {
