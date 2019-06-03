@@ -61,7 +61,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let plantImgName: String = "plant_\(Date().timeIntervalSince1970).png"
         saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
         
-        let plant: Plant = Plant(newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+        let plant: Plant = Plant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
         UserData.getInstance().addPlant(plant: plant)
         
         if let tabController = presentingViewController as? UITabBarController,

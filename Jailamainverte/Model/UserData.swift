@@ -11,7 +11,7 @@ import Foundation
 class UserData {
     
     private static var instance: UserData? = nil
-    var _plantsArray: [Plant] = [Plant(newName: "Geronimo", newFamily: "Geranium", newPlantImgPath: "plant_0.png", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())]
+    var _plantsArray: [Plant] = [Plant(newId: Int(Date().timeIntervalSince1970), newName: "Geronimo", newFamily: "Geranium", newPlantImgPath: "plant_0.png", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())]
     let _plantsFamily: [String] = ["Aucune", "Rose", "Jacynthe", "Géranium", "Lila"]
     
     let dayMinString: String = NSLocalizedString("d", comment: "diminutif pour l'unite jour")

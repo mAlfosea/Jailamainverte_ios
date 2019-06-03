@@ -10,6 +10,7 @@ import Foundation
 
 class Plant {
     
+    var _plantId: Int
     var _plantName: String
     var _plantFamily: String
     var _plantImgPath: String
@@ -17,7 +18,8 @@ class Plant {
     var _cycleHour: Date
     var _arrosageCycle: Int
     
-    init (newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
+    init (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
+        _plantId = newId
         _plantName = newName
         _plantFamily = newFamily
         _plantImgPath = newPlantImgPath
