@@ -51,20 +51,21 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         ui_plant_name_label.delegate = self
         ui_watering_cycle_label.text = String(_wateringCycle) + UserData.getInstance().dayMinString
-        ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         ui_submit_button.layer.cornerRadius = 5
         ui_plant_img.layer.cornerRadius = 5
         ui_change_photo_button.layer.cornerRadius = 5
     }
     
     @IBAction func addButtonSubmit(_ sender: Any) {
-        let plantImgName: String = "plant_\(UserData.getInstance()._plantsArray.count).png"
+        let plantImgName: String = "plant_\(Date().timeIntervalSince1970).png"
         saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
         
         let plant: Plant = Plant(newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
         UserData.getInstance().addPlant(plant: plant)
         
-        if let navController = presentingViewController as? UINavigationController,
+        if let tabController = presentingViewController as? UITabBarController,
+            let navController = tabController.selectedViewController as? UINavigationController,
             let mainTableVC = navController.topViewController as? MainTableViewController {
             mainTableVC.datasUpdated = true
         }

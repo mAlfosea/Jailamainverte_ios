@@ -25,4 +25,24 @@ class Plant {
         _arrosageCycle = newArrosageCycle
         _cycleHour = newArrosageHour
     }
+    
+    func getNextArrosageDate () -> String {
+        var dateComponent = DateComponents()
+        dateComponent.day = _arrosageCycle
+        
+        var nextArrosageString: String = "NONE"
+        
+        if let nextArrosage = Calendar.current.date(byAdding: dateComponent, to: _lastArrosage) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE"
+            nextArrosageString = formatter.string(from: nextArrosage)
+            
+            formatter.timeStyle = .short
+            formatter.dateStyle = .none
+            
+            nextArrosageString += ": \(formatter.string(from: _cycleHour))"
+        }
+        
+        return nextArrosageString
+    }
 }

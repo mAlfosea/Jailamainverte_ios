@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xng-Io-36q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1WM-sp-NS1">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -198,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2605.7971014492755" y="-526.33928571428567"/>
+            <point key="canvasLocation" x="2913" y="25"/>
         </scene>
         <!--My plants-->
         <scene sceneID="RoG-a7-DmC">
@@ -311,6 +311,7 @@
                             <outlet property="delegate" destination="tfT-59-E8N" id="zL9-0A-v7r"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="" id="Tbz-C1-9mV"/>
                     <navigationItem key="navigationItem" title="My plants" id="J2h-Df-OiQ">
                         <barButtonItem key="backBarButtonItem" title="Back" id="aGq-dV-6pW"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="wvv-8y-zCM">
@@ -322,12 +323,29 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNx-jC-fqN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1897.1014492753625" y="116.51785714285714"/>
+            <point key="canvasLocation" x="2033" y="25"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Profil-->
+        <scene sceneID="4bT-tP-QV7">
+            <objects>
+                <viewController title="Profil" id="WmA-S7-Kj1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dfU-yb-YZb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="15s-iK-A72"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hcL-vF-tUW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s8Q-DT-hKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2032" y="733"/>
+        </scene>
+        <!--Mes plantes-->
         <scene sceneID="lEO-EJ-g3V">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="Xng-Io-36q" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xng-Io-36q" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Mes plantes" image="edit" id="pfm-up-E2l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="jMO-3r-KsP">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -335,7 +353,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KV9-bi-sDc">
-                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -344,7 +361,44 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBn-S6-yoq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986.95652173913049" y="116.51785714285714"/>
+            <point key="canvasLocation" x="1093" y="25"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="aNt-QG-oRh">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1WM-sp-NS1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KQo-3z-gNT">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Ph9-aG-rlo" kind="relationship" relationship="viewControllers" id="0Xi-7i-XgV"/>
+                        <segue destination="Xng-Io-36q" kind="relationship" relationship="viewControllers" id="Nnc-lT-dVg"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oji-RL-39Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="469"/>
+        </scene>
+        <!--Profil-->
+        <scene sceneID="5N4-fS-sAk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ph9-aG-rlo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profil" image="clock" id="Gbt-1G-taa"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x41-Wo-JVA">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WmA-S7-Kj1" kind="relationship" relationship="rootViewController" id="Tql-rB-uZz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hL3-eO-FFS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092.753623188406" y="732.58928571428567"/>
         </scene>
     </scenes>
     <resources>

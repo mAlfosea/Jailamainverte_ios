@@ -31,6 +31,7 @@ class PlantTableViewCell: UITableViewCell {
     func display(plant: Plant) {
         ui_plant_name.text = plant._plantName
         ui_plant_family.text = plant._plantFamily
+        ui_plant_next_arrosage.text = plant.getNextArrosageDate()
         changePlantImg(plantName: plant._plantImgPath)
     }
 
