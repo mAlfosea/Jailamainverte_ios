@@ -180,7 +180,8 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @objc func doneDatePicker(){
         //ui_last_watering_field.isEnabled = false
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateStyle = .short
+        //formatter.dateFormat = "dd/MM/yyyy"
         _lastWatering = datePicker.date
         ui_last_watering_field.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)

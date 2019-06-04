@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        (window?.rootViewController as?  UITabBarController)?.selectedIndex = 1
+        //(window?.rootViewController as?  UITabBarController)?.selectedIndex = 1
+        Switcher.updateRootVC()
         return true
     }
 

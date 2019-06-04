@@ -1,17 +1,15 @@
 //
-//  MainTableViewController.swift
+//  HistoryTableViewController.swift
 //  Jailamainverte
 //
-//  Created by Admin on 24/05/2019.
+//  Created by Admin on 04/06/2019.
 //  Copyright © 2019 Admin. All rights reserved.
 //
 
 import UIKit
 
-class MainTableViewController: UITableViewController {
+class HistoryTableViewController: UITableViewController {
 
-    var datasUpdated: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +20,12 @@ class MainTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -29,46 +33,27 @@ class MainTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }*/
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if (datasUpdated) {
-            //let indexPath = IndexPath(row: UserData.getInstance()._plantsArray.count - 1, section: 0)
-            //tableView.insertRows(at: [indexPath], with: .automatic)
-            tableView.reloadData()
-            datasUpdated = false
-        }
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if UserData.getInstance()._plantsArray.count == 0 {
-            return 1
-        } else {
-            return UserData.getInstance()._plantsArray.count
-        }
+        return UserData.getInstance()._wateringsArray.count
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       /* let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath)*/
-        var cellModel: UITableViewCell
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath) as? PlantTableViewCell else {
+       // let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as? WateringHistoryTableViewCell else {
             fatalError("ERROR")
         }
-        let cell2 = tableView.dequeueReusableCell(withIdentifier: "addPlantCell", for: indexPath)
         
-        if UserData.getInstance()._plantsArray.count == 0 {
-            cellModel = cell2
-            tableView.rowHeight = 300
-        } else {
-            cell.display(plant: UserData.getInstance()._plantsArray[indexPath.row])
-            cellModel = cell
-            tableView.rowHeight = 100
-        }
-        return cellModel
+        let watering: Watering = UserData.getInstance()._wateringsArray[indexPath.row]
+        
+        cell.display(watering: watering)
+        
+        return cell
     }
     
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

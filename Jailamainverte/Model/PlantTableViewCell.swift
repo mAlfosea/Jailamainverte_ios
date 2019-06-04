@@ -60,5 +60,8 @@ class PlantTableViewCell: UITableViewCell {
                 _plant = plant
             }
         }
+        
+        UserData.getInstance().addWatering(watering: Watering(user: "Admin", plant: plant, wateringDate: plant._lastArrosage))
+        UserData.getInstance().isLogged = false
     }
 }
