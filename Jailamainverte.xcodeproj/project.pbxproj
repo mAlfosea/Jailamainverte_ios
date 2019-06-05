@@ -23,6 +23,9 @@
 		84DDBD1422A69B5C0097A49E /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1322A69B5C0097A49E /* HistoryTableViewController.swift */; };
 		84DDBD1622A69D1E0097A49E /* Watering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1522A69D1E0097A49E /* Watering.swift */; };
 		84DDBD1822A6B1490097A49E /* WateringHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */; };
+		84DDBD1A22A7B8DC0097A49E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1922A7B8DC0097A49E /* Toast.swift */; };
+		84DDBD1C22A7FBE60097A49E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1B22A7FBE60097A49E /* ProfileViewController.swift */; };
+		84DDBD1E22A818FF0097A49E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDBD1D22A818FF0097A49E /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,9 @@
 		84DDBD1322A69B5C0097A49E /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		84DDBD1522A69D1E0097A49E /* Watering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watering.swift; sourceTree = "<group>"; };
 		84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WateringHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		84DDBD1922A7B8DC0097A49E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		84DDBD1B22A7FBE60097A49E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		84DDBD1D22A818FF0097A49E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +132,7 @@
 				84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */,
 				84AFEB3B2298117C002A5864 /* MainTableViewController.swift */,
 				84DDBD0F22A6607B0097A49E /* SplashScreenViewController.swift */,
+				84DDBD1B22A7FBE60097A49E /* ProfileViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -140,6 +147,8 @@
 				84DDBD1122A663500097A49E /* Switcher.swift */,
 				84DDBD1522A69D1E0097A49E /* Watering.swift */,
 				84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */,
+				84DDBD1922A7B8DC0097A49E /* Toast.swift */,
+				84DDBD1D22A818FF0097A49E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,12 +263,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DDBD1A22A7B8DC0097A49E /* Toast.swift in Sources */,
 				84DDBD1622A69D1E0097A49E /* Watering.swift in Sources */,
 				84AFEB2B2298113A002A5864 /* AddPlantViewController.swift in Sources */,
 				84CD9112229BCD9B00A65CDB /* PlantTableViewCell.swift in Sources */,
+				84DDBD1C22A7FBE60097A49E /* ProfileViewController.swift in Sources */,
 				84DDBD1822A6B1490097A49E /* WateringHistoryTableViewCell.swift in Sources */,
 				84DDBD1022A6607B0097A49E /* SplashScreenViewController.swift in Sources */,
 				84AFEB3C2298117C002A5864 /* MainTableViewController.swift in Sources */,
+				84DDBD1E22A818FF0097A49E /* User.swift in Sources */,
 				84DDBD1422A69B5C0097A49E /* HistoryTableViewController.swift in Sources */,
 				84AFEB41229816EB002A5864 /* Plant.swift in Sources */,
 				84DDBD1222A663500097A49E /* Switcher.swift in Sources */,

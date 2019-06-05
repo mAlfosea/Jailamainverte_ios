@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MainTableViewController: UITableViewController {
-
+class MainTableViewController: UITableViewController, PlantCellDelegate {
+    
     var datasUpdated: Bool = false
     
     override func viewDidLoad() {
@@ -65,8 +65,13 @@ class MainTableViewController: UITableViewController {
             cell.display(plant: UserData.getInstance()._plantsArray[indexPath.row])
             cellModel = cell
             tableView.rowHeight = 100
+            cell.delegate = self
         }
         return cellModel
+    }
+    
+    func wateringWasDone(forPlant plant: Plant) {
+        Toast.show(message: "\(plant._plantName) \(UserData.getInstance().wateringToastString)", controller: self.parent ?? self)
     }
     
     /*

@@ -12,6 +12,7 @@ class UserData {
     
     private static var instance: UserData? = nil
     
+    var _user: User = User(userId: 1, userName: "Francis", userMail: "francis.bg@gmail.com", userPassword: "bgDu13", userImagePath: "test_1", notificationSetting: false)
     var _plantsArray: [Plant] = [/*Plant(newId: Int(Date().timeIntervalSince1970), newName: "Geronimo", newFamily: "Geranium", newPlantImgPath: "plant_0.png", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())*/]
     let _plantsFamily: [String] = ["Aucune", "Rose", "Jacynthe", "Géranium", "Lila"]
     var _wateringsArray: [Watering] = []
@@ -22,6 +23,7 @@ class UserData {
     let selectPictureFromCameraString: String = NSLocalizedString("Camera", comment: "bouton pour prendre une photo avec l'apareil photo")
     let selectPictureFromLibraryString: String = NSLocalizedString("Photo Library", comment: "bouton pour prendre une photo depuis la librairie")
     let wateringSentenceString: String = NSLocalizedString("has watered", comment: "texte dans l'historique des arrosages")
+    let wateringToastString: String = NSLocalizedString("thanks you :)", comment: "texte sur le toast d'arrosage")
    
     private init() {
         //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire

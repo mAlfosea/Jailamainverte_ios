@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PlantCellDelegate {
+    func wateringWasDone(forPlant plant:Plant)
+}
+
 class PlantTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ui_plant_img: UIImageView!
@@ -15,6 +19,7 @@ class PlantTableViewCell: UITableViewCell {
     @IBOutlet weak var ui_plant_family: UILabel!
     @IBOutlet weak var ui_plant_next_arrosage: UILabel!
     
+    var delegate:PlantCellDelegate?
     var _plant: Plant?
     
     
@@ -61,7 +66,9 @@ class PlantTableViewCell: UITableViewCell {
             }
         }
         
-        UserData.getInstance().addWatering(watering: Watering(user: "Admin", plant: plant, wateringDate: plant._lastArrosage))
+        UserData.getInstance().addWatering(watering: Watering(user: UserData.getInstance()._user._userName, plant: plant, wateringDate: plant._lastArrosage))
         UserData.getInstance().isLogged = false
+        
+        delegate?.wateringWasDone(forPlant: plant)
     }
 }
