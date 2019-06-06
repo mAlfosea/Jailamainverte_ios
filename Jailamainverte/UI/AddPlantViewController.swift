@@ -55,6 +55,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         ui_submit_button.layer.cornerRadius = 5
         ui_plant_img.layer.cornerRadius = 5
         ui_change_photo_button.layer.cornerRadius = 5
+        ui_plant_img.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
     }
     
     @IBAction func addButtonSubmit(_ sender: Any) {
@@ -100,36 +101,22 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @IBAction func changePhotoButtonClicked(_ sender: Any) {
         let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
         let takePictureFromCamera = UIAlertAction(title: UserData.getInstance().selectPictureFromCameraString, style: .default) { (_) in
             self.callImagePicker(state: true)
         }
-        let cameraIcon = UIImage(named: "edit")
-        takePictureFromCamera.setValue(cameraIcon, forKey: "image")
-        takePictureFromCamera.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+        takePictureFromCamera.createAlertActionImage(imageName: "edit")
         changePictureAlert.addAction(takePictureFromCamera)
-        
         
         let takePictureFromLibrary = UIAlertAction(title: UserData.getInstance().selectPictureFromLibraryString, style: .default) { (_) in
             self.callImagePicker(state: false)
         }
-        let libraryIcon = UIImage(named: "loupe")
-        takePictureFromLibrary.setValue(libraryIcon, forKey: "image")
-        takePictureFromLibrary.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+        takePictureFromLibrary.createAlertActionImage(imageName: "loupe")
         changePictureAlert.addAction(takePictureFromLibrary)
         
         changePictureAlert.addAction(UIAlertAction(title: UserData.getInstance().cancelButtonString, style: .cancel, handler: nil))
         changePictureAlert.view.tintColor = UIColor.black
         
         present(changePictureAlert, animated: true, completion: nil)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nameTemp = ui_plant_name_label.text {
-            _plantName = nameTemp
-            ui_plant_name_label.resignFirstResponder()
-        }
-        return true
     }
     
     func callImagePicker(state: Bool) {
@@ -152,13 +139,20 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         _imagePicker.dismiss(animated: true, completion: nil)
-        ui_plant_img.image = info[.editedImage] as? UIImage
-        ui_plant_img.contentMode = UIView.ContentMode.scaleToFill
-        ui_plant_img.clipsToBounds = true
-        
+        if let image = info[.editedImage] as? UIImage {
+            ui_plant_img.setImageScaleToFill(image: image)
+        }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         _imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nameTemp = ui_plant_name_label.text {
+            _plantName = nameTemp
+            ui_plant_name_label.resignFirstResponder()
+        }
+        return true
     }
     
     func showDatePicker(){

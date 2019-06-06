@@ -56,16 +56,19 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath) as? PlantTableViewCell else {
             fatalError("ERROR")
         }
-        let cell2 = tableView.dequeueReusableCell(withIdentifier: "addPlantCell", for: indexPath)
-        
+        guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "addPlantCell", for: indexPath) as? NewUserTableViewCell else {
+            fatalError("ERROR")
+        }
+    
         if UserData.getInstance()._plantsArray.count == 0 {
             cellModel = cell2
             tableView.rowHeight = 300
+            
         } else {
             cell.display(plant: UserData.getInstance()._plantsArray[indexPath.row])
+            cell.delegate = self
             cellModel = cell
             tableView.rowHeight = 100
-            cell.delegate = self
         }
         return cellModel
     }

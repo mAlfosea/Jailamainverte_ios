@@ -40,9 +40,10 @@ class WateringHistoryTableViewCell: UITableViewCell {
         formatter.dateStyle = .none
         let hour:String = formatter.string(from: watering.wateringDate)
         
-        ui_plantImage.image = getImage(imageName: watering.plant._plantImgPath)
-        ui_plantImage.contentMode = UIView.ContentMode.scaleToFill
-        ui_plantImage.clipsToBounds = true
+        if let image = getImage(imageName: UserData.getInstance()._user._userImage) {
+            ui_plantImage.setImageScaleToFill(image: image)
+            ui_plantImage.createBorder(color: UIColor.ThemeColors.green, width: 3)
+        }
         
         ui_historyLabel.text = watering.user + " \(UserData.getInstance().wateringSentenceString) \(watering.plant._plantName)"
         ui_dateLabel.text = "\(hour)\n\(date)"

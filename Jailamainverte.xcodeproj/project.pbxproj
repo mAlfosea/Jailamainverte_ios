@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8423DBAC22A914B9008C31AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423DBAB22A914B9008C31AD /* Extensions.swift */; };
+		8423DBB022A950AF008C31AD /* NewUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */; };
+		8423DBB222A969A3008C31AD /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423DBB122A969A3008C31AD /* SignInViewController.swift */; };
 		84509FC3229E7773005DAF3B /* UserDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84509FC2229E7773005DAF3B /* UserDataTests.swift */; };
 		84AFEB292298113A002A5864 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB282298113A002A5864 /* AppDelegate.swift */; };
 		84AFEB2B2298113A002A5864 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8423DBAB22A914B9008C31AD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserTableViewCell.swift; sourceTree = "<group>"; };
+		8423DBB122A969A3008C31AD /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		84509FC0229E7772005DAF3B /* JailamainverteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JailamainverteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84509FC2229E7773005DAF3B /* UserDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataTests.swift; sourceTree = "<group>"; };
 		84509FC4229E7773005DAF3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 				84AFEB3B2298117C002A5864 /* MainTableViewController.swift */,
 				84DDBD0F22A6607B0097A49E /* SplashScreenViewController.swift */,
 				84DDBD1B22A7FBE60097A49E /* ProfileViewController.swift */,
+				8423DBB122A969A3008C31AD /* SignInViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -149,6 +156,8 @@
 				84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */,
 				84DDBD1922A7B8DC0097A49E /* Toast.swift */,
 				84DDBD1D22A818FF0097A49E /* User.swift */,
+				8423DBAB22A914B9008C31AD /* Extensions.swift */,
+				8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -274,7 +283,10 @@
 				84DDBD1E22A818FF0097A49E /* User.swift in Sources */,
 				84DDBD1422A69B5C0097A49E /* HistoryTableViewController.swift in Sources */,
 				84AFEB41229816EB002A5864 /* Plant.swift in Sources */,
+				8423DBAC22A914B9008C31AD /* Extensions.swift in Sources */,
+				8423DBB022A950AF008C31AD /* NewUserTableViewCell.swift in Sources */,
 				84DDBD1222A663500097A49E /* Switcher.swift in Sources */,
+				8423DBB222A969A3008C31AD /* SignInViewController.swift in Sources */,
 				84DDBD0E22A5380A0097A49E /* Tools.swift in Sources */,
 				84AFEB3F2298154F002A5864 /* UserData.swift in Sources */,
 				84AFEB292298113A002A5864 /* AppDelegate.swift in Sources */,

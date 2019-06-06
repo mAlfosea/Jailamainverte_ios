@@ -45,9 +45,8 @@ class PlantTableViewCell: UITableViewCell {
 
     func changePlantImg(plantName: String) {
         if let plantImage = getImage(imageName: plantName) {
-            ui_plant_img.image = plantImage
-            ui_plant_img.contentMode = UIView.ContentMode.scaleToFill
-            ui_plant_img.clipsToBounds = true
+            ui_plant_img.setImageScaleToFill(image: plantImage)
+            ui_plant_img.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
         }
     }
     

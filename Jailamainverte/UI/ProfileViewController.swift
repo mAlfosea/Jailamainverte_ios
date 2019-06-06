@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+    
 
     @IBOutlet weak var ui_userPhotoImage: UIImageView!
     @IBOutlet weak var ui_userNameField: UITextField!
@@ -16,6 +17,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var ui_userPasswordField: UITextField!
     @IBOutlet weak var ui_notificationsSwitch: UISwitch!
     @IBOutlet weak var ui_saveButton: UIButton!
+    
+    var _userName: String?
+    var _userMail: String?
+    var _userPassword: String?
+    var _userPhotoPath: String?
+    var _userNotification: Bool?
+    
+    var _imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,29 +37,108 @@ class ProfileViewController: UIViewController {
         ui_userPhotoImage.layer.cornerRadius = 20
         ui_saveButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         ui_saveButton.layer.cornerRadius = 5
+        ui_userPhotoImage.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
+        
+        ui_userNameField.delegate = self
+        ui_userMailField.delegate = self
+        ui_userPasswordField.delegate = self
         
         showInfos()
     }
     
     func showInfos() {
-        ui_userPhotoImage.image = getImage(imageName: UserData.getInstance()._user._userImage)
-        ui_userNameField.text = UserData.getInstance()._user._userName
-        ui_userMailField.text = UserData.getInstance()._user._userMail
-        ui_userPasswordField.text = UserData.getInstance()._user._userPassword
-        ui_notificationsSwitch.isOn = UserData.getInstance()._user._notificationSetting
+        let user: User = UserData.getInstance()._user
+        _userName = user._userName
+        _userMail = user._userMail
+        _userPassword = user._userPassword
+        _userPhotoPath = user._userImage
+        _userNotification = user._notificationSetting
+        
+        ui_userPhotoImage.image = getImage(imageName: user._userImage)
+        ui_userNameField.text = user._userName
+        ui_userMailField.text = user._userMail
+        ui_userPasswordField.text = user._userPassword
+        ui_notificationsSwitch.isOn = user._notificationSetting
     }
     
     @IBAction func changePhotoClicked(_ sender: Any) {
+        let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let takePictureFromCamera = UIAlertAction(title: UserData.getInstance().selectPictureFromCameraString, style: .default) { (_) in
+            self.callImagePicker(state: true)
+        }
+        takePictureFromCamera.createAlertActionImage(imageName: "edit")
+        changePictureAlert.addAction(takePictureFromCamera)
+        
+        let takePictureFromLibrary = UIAlertAction(title: UserData.getInstance().selectPictureFromLibraryString, style: .default) { (_) in
+            self.callImagePicker(state: false)
+        }
+        takePictureFromLibrary.createAlertActionImage(imageName: "loupe")
+        changePictureAlert.addAction(takePictureFromLibrary)
+        
+        changePictureAlert.addAction(UIAlertAction(title: UserData.getInstance().cancelButtonString, style: .cancel, handler: nil))
+        changePictureAlert.view.tintColor = UIColor.black
+        
+        present(changePictureAlert, animated: true, completion: nil)
     }
+    
+    func callImagePicker(state: Bool) {
+        _imagePicker = UIImagePickerController()
+        _imagePicker.delegate = self
+        
+        if state {
+            if UIImagePickerController.isSourceTypeAvailable(.camera)  {
+                _imagePicker.allowsEditing = true
+                _imagePicker.sourceType = .camera
+            }
+        } else {
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)  {
+                _imagePicker.allowsEditing = true
+                _imagePicker.sourceType = .photoLibrary
+            }
+        }
+        present(_imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        _imagePicker.dismiss(animated: true, completion: nil)
+        if let image = info[.editedImage] as? UIImage {
+            ui_userPhotoImage.setImageScaleToFill(image: image)
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        _imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func changeNameButtonClicked(_ sender: Any) {
+        ui_userNameField.setButtonEnableOn()
     }
     @IBAction func changeMailButtonClicked(_ sender: Any) {
+        ui_userMailField.setButtonEnableOn()
     }
     @IBAction func changePasswordButtonClicked(_ sender: Any) {
+        ui_userPasswordField.setButtonEnableOn()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == ui_userNameField {
+            _userName = textField.text
+        } else if textField == ui_userMailField {
+            _userMail = textField.text
+        } else {
+            _userPassword = textField.text
+        }
+        textField.setButtonEnableOff()
+        return true
     }
     @IBAction func changeNotificationsSwitched(_ sender: UISwitch) {
+        _userNotification = ui_notificationsSwitch.isOn
     }
     @IBAction func saveButtonClicked(_ sender: Any) {
+        let userImgName: String = "user_photo.png"
+        saveImage(imageName: userImgName, sourceImg: ui_userPhotoImage.image!)
+        
+        let user = User(userId: UserData.getInstance()._user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+        UserData.getInstance().updateuser(user: user)
+        Toast.show(message: UserData.getInstance().saveUserToastString, controller: self)
     }
     
     /*

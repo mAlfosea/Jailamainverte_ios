@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserData {
     
@@ -17,6 +18,8 @@ class UserData {
     let _plantsFamily: [String] = ["Aucune", "Rose", "Jacynthe", "Géranium", "Lila"]
     var _wateringsArray: [Watering] = []
     
+    
+    
     let dayMinString: String = NSLocalizedString("d", comment: "diminutif pour l'unite jour")
     let doneButtonString: String = NSLocalizedString("Done", comment: "boutton done pour les toolbars")
     let cancelButtonString: String = NSLocalizedString("Cancel", comment: "boutton cancel pour les toolbars")
@@ -24,6 +27,7 @@ class UserData {
     let selectPictureFromLibraryString: String = NSLocalizedString("Photo Library", comment: "bouton pour prendre une photo depuis la librairie")
     let wateringSentenceString: String = NSLocalizedString("has watered", comment: "texte dans l'historique des arrosages")
     let wateringToastString: String = NSLocalizedString("thanks you :)", comment: "texte sur le toast d'arrosage")
+    let saveUserToastString: String = NSLocalizedString("Profil updated", comment: "texte sur le toast de modif du profil")
    
     private init() {
         //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire
@@ -43,6 +47,10 @@ class UserData {
     
     func addWatering (watering: Watering) {
         _wateringsArray.insert(watering, at: 0)
+    }
+    
+    func updateuser (user: User) {
+        _user = user
     }
     
     var isLogged: Bool {
