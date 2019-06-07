@@ -8,30 +8,31 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class UserData {
     
     private static var instance: UserData? = nil
     
-    var _user: User = User(userId: 1, userName: "Francis", userMail: "francis.bg@gmail.com", userPassword: "bgDu13", userImagePath: "test_1", notificationSetting: false)
-    var _plantsArray: [Plant] = [/*Plant(newId: Int(Date().timeIntervalSince1970), newName: "Geronimo", newFamily: "Geranium", newPlantImgPath: "plant_0.png", newLastArrosage: Date(), newArrosageCycle: 3, newArrosageHour: Date())*/]
-    let _plantsFamily: [String] = ["Aucune", "Rose", "Jacynthe", "Géranium", "Lila"]
-    var _wateringsArray: [Watering] = []
-    
-    
-    
-    let dayMinString: String = NSLocalizedString("d", comment: "diminutif pour l'unite jour")
-    let doneButtonString: String = NSLocalizedString("Done", comment: "boutton done pour les toolbars")
-    let cancelButtonString: String = NSLocalizedString("Cancel", comment: "boutton cancel pour les toolbars")
-    let selectPictureFromCameraString: String = NSLocalizedString("Camera", comment: "bouton pour prendre une photo avec l'apareil photo")
-    let selectPictureFromLibraryString: String = NSLocalizedString("Photo Library", comment: "bouton pour prendre une photo depuis la librairie")
-    let wateringSentenceString: String = NSLocalizedString("has watered", comment: "texte dans l'historique des arrosages")
-    let wateringToastString: String = NSLocalizedString("thanks you :)", comment: "texte sur le toast d'arrosage")
-    let saveUserToastString: String = NSLocalizedString("Profil updated", comment: "texte sur le toast de modif du profil")
+    private var _user: User?
+    private var _plantsArray: [Plant] = []
+    private var _wateringsArray: [Watering] = []
    
     private init() {
         //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire
-        UserDefaults.standard.register(defaults: ["ISLOGGED" : false])
+        UserDefaults.standard.register(defaults: [Values().isLoggedUserDefaultName : false])
+        
+        var realmConfig = Realm.Configuration.defaultConfiguration
+        realmConfig.deleteRealmIfMigrationNeeded = true
+        print(realmConfig.fileURL as Any)
+        Realm.Configuration.defaultConfiguration = realmConfig
+        
+        let realm = try! Realm()
+        let user = realm.objects(User.self)
+        if user.count != 0 {
+            _user = user[0]
+        }
+        
     }
     
     static func getInstance() -> UserData {
@@ -44,21 +45,45 @@ class UserData {
     func addPlant (plant: Plant) {
         _plantsArray.append(plant)
     }
+    func getPlants () -> [Plant] {
+        return _plantsArray
+    }
+    func getSpecificPlant (index : Int) -> Plant {
+        return _plantsArray[index]
+    }
+    func getPlantsCount () -> Int {
+        return _plantsArray.count
+    }
+    
     
     func addWatering (watering: Watering) {
         _wateringsArray.insert(watering, at: 0)
     }
+    func getWaterings () -> [Watering] {
+        return _wateringsArray
+    }
+    func getSpecificWatering (index : Int) -> Watering {
+        return _wateringsArray[index]
+    }
+    func getWateringsCount () -> Int {
+        return _wateringsArray.count
+    }
     
-    func updateuser (user: User) {
+    
+    func updateUser (user: User) {
         _user = user
     }
+    func getUser () -> User? {
+        return _user
+    }
+    
     
     var isLogged: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "ISLOGGED")
+            return UserDefaults.standard.bool(forKey: Values().isLoggedUserDefaultName)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "ISLOGGED")
+            UserDefaults.standard.set(newValue, forKey: Values().isLoggedUserDefaultName)
         }
     }
 }

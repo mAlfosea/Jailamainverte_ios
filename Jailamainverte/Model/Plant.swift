@@ -7,18 +7,19 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Plant {
+class Plant: Object {
     
-    var _plantId: Int
-    var _plantName: String
-    var _plantFamily: String
-    var _plantImgPath: String
-    var _lastArrosage: Date
-    var _cycleHour: Date
-    var _arrosageCycle: Int
+    @objc dynamic var _plantId: Int = 0
+    @objc dynamic var _plantName: String = ""
+    @objc dynamic var _plantFamily: String = ""
+    @objc dynamic var _plantImgPath: String = ""
+    @objc dynamic var _lastArrosage: Date = Date()
+    @objc dynamic var _cycleHour: Date = Date()
+    @objc dynamic var _arrosageCycle: Int = 0
     
-    init (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
+    func createPlant (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
         _plantId = newId
         _plantName = newName
         _plantFamily = newFamily

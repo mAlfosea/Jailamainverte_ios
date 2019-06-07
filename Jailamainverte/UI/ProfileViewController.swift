@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -17,6 +18,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var ui_userPasswordField: UITextField!
     @IBOutlet weak var ui_notificationsSwitch: UISwitch!
     @IBOutlet weak var ui_saveButton: UIButton!
+    @IBOutlet weak var ui_logoutButton: UIButton!
     
     var _userName: String?
     var _userMail: String?
@@ -37,6 +39,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         ui_userPhotoImage.layer.cornerRadius = 20
         ui_saveButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         ui_saveButton.layer.cornerRadius = 5
+        ui_logoutButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        ui_logoutButton.layer.cornerRadius = 5
         ui_userPhotoImage.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
         
         ui_userNameField.delegate = self
@@ -47,7 +51,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func showInfos() {
-        let user: User = UserData.getInstance()._user
+        guard let user = UserData.getInstance().getUser() else { return }
+        
         _userName = user._userName
         _userMail = user._userMail
         _userPassword = user._userPassword
@@ -63,19 +68,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func changePhotoClicked(_ sender: Any) {
         let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let takePictureFromCamera = UIAlertAction(title: UserData.getInstance().selectPictureFromCameraString, style: .default) { (_) in
+        let takePictureFromCamera = UIAlertAction(title: Values().selectPictureFromCameraString, style: .default) { (_) in
             self.callImagePicker(state: true)
         }
         takePictureFromCamera.createAlertActionImage(imageName: "edit")
         changePictureAlert.addAction(takePictureFromCamera)
         
-        let takePictureFromLibrary = UIAlertAction(title: UserData.getInstance().selectPictureFromLibraryString, style: .default) { (_) in
+        let takePictureFromLibrary = UIAlertAction(title: Values().selectPictureFromLibraryString, style: .default) { (_) in
             self.callImagePicker(state: false)
         }
         takePictureFromLibrary.createAlertActionImage(imageName: "loupe")
         changePictureAlert.addAction(takePictureFromLibrary)
         
-        changePictureAlert.addAction(UIAlertAction(title: UserData.getInstance().cancelButtonString, style: .cancel, handler: nil))
+        changePictureAlert.addAction(UIAlertAction(title: Values().cancelButtonString, style: .cancel, handler: nil))
         changePictureAlert.view.tintColor = UIColor.black
         
         present(changePictureAlert, animated: true, completion: nil)
@@ -136,9 +141,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let userImgName: String = "user_photo.png"
         saveImage(imageName: userImgName, sourceImg: ui_userPhotoImage.image!)
         
-        let user = User(userId: UserData.getInstance()._user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
-        UserData.getInstance().updateuser(user: user)
-        Toast.show(message: UserData.getInstance().saveUserToastString, controller: self)
+        let realm = try! Realm()
+        try! realm.write {
+            if let user = UserData.getInstance().getUser() {
+                user.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+            } else {
+                let newUser = User()
+                newUser.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+                UserData.getInstance().updateUser(user: newUser)
+                realm.add(newUser)
+            }
+        }
+        
+        Toast.show(message: Values().saveUserToastString, controller: self)
+    }
+    
+    @IBAction func logoutButtonClicked(_ sender: Any) {
+        UserData.getInstance().isLogged = false
+        Switcher.updateRootVC()
     }
     
     /*

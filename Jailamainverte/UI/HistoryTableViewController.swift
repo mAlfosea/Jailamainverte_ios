@@ -36,7 +36,7 @@ class HistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return UserData.getInstance()._wateringsArray.count
+        return UserData.getInstance().getWateringsCount()
     }
 
     
@@ -46,7 +46,7 @@ class HistoryTableViewController: UITableViewController {
             fatalError("ERROR")
         }
         
-        let watering: Watering = UserData.getInstance()._wateringsArray[indexPath.row]
+        let watering: Watering = UserData.getInstance().getSpecificWatering(index: indexPath.row)
         
         cell.display(watering: watering)
         

@@ -58,15 +58,20 @@ class PlantTableViewCell: UITableViewCell {
         plant._lastArrosage = Date()
         ui_plant_next_arrosage.text = plant.getNextArrosageDate()
         
-        for i in 0..<UserData.getInstance()._plantsArray.count {
+        _plant = UserData.getInstance().getPlants().first(where: { (plant) -> Bool in
+            return true
+        })
+        
+        /*for i in 0..<UserData.getInstance().getPlantsCount() {
             if plant._plantId == UserData.getInstance()._plantsArray[i]._plantId {
                 UserData.getInstance()._plantsArray[i] = plant
                 _plant = plant
             }
-        }
+        }*/
         
-        UserData.getInstance().addWatering(watering: Watering(user: UserData.getInstance()._user._userName, plant: plant, wateringDate: plant._lastArrosage))
-        UserData.getInstance().isLogged = false
+        if let user = UserData.getInstance().getUser() {
+            UserData.getInstance().addWatering(watering: Watering(user: user._userName, plant: plant, wateringDate: plant._lastArrosage))
+        }
         
         delegate?.wateringWasDone(forPlant: plant)
     }

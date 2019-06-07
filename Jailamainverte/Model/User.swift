@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-class User {
+class User: Object {
     
-    let _userId: Int
-    var _userName: String
-    var _userMail: String
-    var _userPassword: String
-    var _userImage: String
-    var _notificationSetting: Bool
+    @objc dynamic var _userId: Int = 0
+    @objc dynamic var _userName: String = ""
+    @objc dynamic var _userMail: String = ""
+    @objc dynamic var _userPassword: String = ""
+    @objc dynamic var _userImage: String = ""
+    @objc dynamic var _notificationSetting: Bool = true
     
-    init(userId: Int, userName: String, userMail: String, userPassword: String, userImagePath: String, notificationSetting: Bool) {
+    func createUser (userId: Int, userName: String, userMail: String, userPassword: String, userImagePath: String, notificationSetting: Bool) {
         _userId = userId
         _userName = userName
         _userMail = userMail

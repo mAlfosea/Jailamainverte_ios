@@ -42,10 +42,10 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if UserData.getInstance()._plantsArray.count == 0 {
+        if UserData.getInstance().getPlantsCount() == 0 {
             return 1
         } else {
-            return UserData.getInstance()._plantsArray.count
+            return UserData.getInstance().getPlantsCount()
         }
     }
 
@@ -60,12 +60,12 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
             fatalError("ERROR")
         }
     
-        if UserData.getInstance()._plantsArray.count == 0 {
+        if UserData.getInstance().getPlantsCount() == 0 {
             cellModel = cell2
             tableView.rowHeight = 300
             
         } else {
-            cell.display(plant: UserData.getInstance()._plantsArray[indexPath.row])
+            cell.display(plant: UserData.getInstance().getSpecificPlant(index: indexPath.row))
             cell.delegate = self
             cellModel = cell
             tableView.rowHeight = 100
@@ -74,7 +74,7 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
     }
     
     func wateringWasDone(forPlant plant: Plant) {
-        Toast.show(message: "\(plant._plantName) \(UserData.getInstance().wateringToastString)", controller: self.parent ?? self)
+        Toast.show(message: "\(plant._plantName) \(Values().wateringToastString)", controller: self.parent ?? self)
     }
     
     /*
