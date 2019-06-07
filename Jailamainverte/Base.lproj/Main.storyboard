@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INQ-fz-7ns">
-                                <rect key="frame" x="20" y="54" width="30" height="30"/>
+                                <rect key="frame" x="20" y="54" width="34" height="30"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -166,7 +166,7 @@
                             <constraint firstItem="ZbX-P9-PqR" firstAttribute="leading" secondItem="Nli-dM-tX6" secondAttribute="trailing" constant="10" id="NfP-Lx-RSj"/>
                             <constraint firstItem="tPM-fh-Gl5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Njs-46-81R"/>
                             <constraint firstItem="9bt-SC-g2Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="UW9-49-JrF"/>
-                            <constraint firstItem="i3g-zR-8JN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="INQ-fz-7ns" secondAttribute="trailing" id="Upu-UF-erx"/>
+                            <constraint firstItem="i3g-zR-8JN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="INQ-fz-7ns" secondAttribute="trailing" id="Upu-UF-erx"/>
                             <constraint firstItem="vUv-i1-hHc" firstAttribute="trailing" secondItem="Qr7-aM-cTN" secondAttribute="trailing" constant="-5" id="VaI-jm-8IA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9bt-SC-g2Z" secondAttribute="trailing" constant="50" id="W6n-aS-SfG"/>
                             <constraint firstItem="i3g-zR-8JN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="WNn-7b-rrh"/>
@@ -720,7 +720,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8C-fg-8OM">
-                                <rect key="frame" x="20" y="54" width="30" height="30"/>
+                                <rect key="frame" x="20" y="54" width="34" height="30"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -759,7 +759,7 @@
                             <constraint firstItem="sOz-vb-R9g" firstAttribute="trailing" secondItem="7yl-1V-b87" secondAttribute="trailing" constant="50" id="dQJ-4l-DUf"/>
                             <constraint firstItem="sOz-vb-R9g" firstAttribute="bottom" secondItem="Frv-x0-4uG" secondAttribute="bottom" constant="50" id="f8o-j5-HB4"/>
                             <constraint firstItem="Frv-x0-4uG" firstAttribute="centerX" secondItem="b8r-5Y-OvB" secondAttribute="centerX" id="jFr-CW-L9Z"/>
-                            <constraint firstItem="E1z-uq-A4s" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L8C-fg-8OM" secondAttribute="trailing" id="jyQ-3y-w1u"/>
+                            <constraint firstItem="E1z-uq-A4s" firstAttribute="leading" relation="lessThanOrEqual" secondItem="L8C-fg-8OM" secondAttribute="trailing" id="jyQ-3y-w1u"/>
                             <constraint firstItem="gGN-Kx-1PP" firstAttribute="centerX" secondItem="b8r-5Y-OvB" secondAttribute="centerX" id="l1W-AZ-1jP"/>
                             <constraint firstItem="7yl-1V-b87" firstAttribute="top" secondItem="gGN-Kx-1PP" secondAttribute="bottom" constant="30" id="nwc-53-1j0"/>
                             <constraint firstItem="Egb-wd-B1k" firstAttribute="leading" secondItem="sOz-vb-R9g" secondAttribute="leading" constant="50" id="pSU-yA-s32"/>

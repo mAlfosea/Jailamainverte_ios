@@ -52,7 +52,6 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        /* let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath)*/
         var cellModel: UITableViewCell
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plantCard", for: indexPath) as? PlantTableViewCell else {
             fatalError("ERROR")
         }

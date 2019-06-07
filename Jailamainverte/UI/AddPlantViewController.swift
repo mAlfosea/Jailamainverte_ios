@@ -49,6 +49,9 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         familyPicker.delegate = self
         familyPicker.dataSource = self
         
+        _plantFamily = Values().plantsFamily[0]
+        ui_plant_family_field.text = _plantFamily
+        
         ui_plant_name_label.delegate = self
         ui_watering_cycle_label.text = String(_wateringCycle) + Values().dayMinString
         ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
@@ -80,12 +83,10 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @IBAction func changeFamilylicked(_ sender: Any) {
-        //ui_plant_family_field.isEnabled = true
         ui_plant_family_field.becomeFirstResponder()
     }
     
     @IBAction func changeDateClicked(_ sender: Any) {
-        //ui_last_watering_field.isEnabled = true
         ui_last_watering_field.becomeFirstResponder()
     }
     
@@ -174,7 +175,6 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func doneDatePicker(){
-        //ui_last_watering_field.isEnabled = false
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         //formatter.dateFormat = "dd/MM/yyyy"
@@ -184,7 +184,6 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func cancelDatePicker(){
-        //ui_last_watering_field.isEnabled = false
         self.view.endEditing(true)
     }
     
@@ -235,12 +234,10 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @objc func doneFamilyPicker(){
-        //ui_plant_family_field.isEnabled = false
         self.view.endEditing(true)
     }
     
     @objc func cancelFamilyPicker(){
-        //ui_plant_family_field.isEnabled = false
         self.view.endEditing(true)
     }
     
