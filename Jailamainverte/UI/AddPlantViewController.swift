@@ -107,13 +107,13 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let takePictureFromCamera = UIAlertAction(title: Values().selectPictureFromCameraString, style: .default) { (_) in
             self.callImagePicker(state: true)
         }
-        takePictureFromCamera.createAlertActionImage(imageName: "edit")
+        takePictureFromCamera.createAlertActionImage(imageName: "camera")
         changePictureAlert.addAction(takePictureFromCamera)
         
         let takePictureFromLibrary = UIAlertAction(title: Values().selectPictureFromLibraryString, style: .default) { (_) in
             self.callImagePicker(state: false)
         }
-        takePictureFromLibrary.createAlertActionImage(imageName: "loupe")
+        takePictureFromLibrary.createAlertActionImage(imageName: "picture")
         changePictureAlert.addAction(takePictureFromLibrary)
         
         changePictureAlert.addAction(UIAlertAction(title: Values().cancelButtonString, style: .cancel, handler: nil))
