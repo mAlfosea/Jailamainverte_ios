@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -15,7 +14,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var ui_userPhotoImage: UIImageView!
     @IBOutlet weak var ui_userNameField: UITextField!
     @IBOutlet weak var ui_userMailField: UITextField!
-    @IBOutlet weak var ui_userPasswordField: UITextField!
     @IBOutlet weak var ui_notificationsSwitch: UISwitch!
     @IBOutlet weak var ui_saveButton: UIButton!
     @IBOutlet weak var ui_logoutButton: UIButton!
@@ -45,7 +43,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         ui_userNameField.delegate = self
         ui_userMailField.delegate = self
-        ui_userPasswordField.delegate = self
         
         showInfos()
     }
@@ -62,7 +59,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         ui_userPhotoImage.image = getImage(imageName: user._userImage)
         ui_userNameField.text = user._userName
         ui_userMailField.text = user._userMail
-        ui_userPasswordField.text = user._userPassword
         ui_notificationsSwitch.isOn = user._notificationSetting
     }
     
@@ -121,15 +117,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         ui_userMailField.setButtonEnableOn()
     }
     @IBAction func changePasswordButtonClicked(_ sender: Any) {
-        ui_userPasswordField.setButtonEnableOn()
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == ui_userNameField {
             _userName = textField.text
         } else if textField == ui_userMailField {
             _userMail = textField.text
-        } else {
-            _userPassword = textField.text
         }
         textField.setButtonEnableOff()
         return true
@@ -141,16 +134,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let userImgName: String = "user_photo.png"
         saveImage(imageName: userImgName, sourceImg: ui_userPhotoImage.image!)
         
-        let realm = try! Realm()
-        try! realm.write {
-            if let user = UserData.getInstance().getUser() {
-                user.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
-            } else {
-                let newUser = User()
-                newUser.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
-                UserData.getInstance().updateUser(user: newUser)
-                realm.add(newUser)
-            }
+        if let user = UserData.getInstance().getUser() {
+            let userTemp: User = User()
+            userTemp.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+            
+            RealmManager().updateUser(user: userTemp)
+            
+        } else {
+            let userTemp = User()
+            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+            
+            RealmManager().updateUser(user: userTemp)
+            
         }
         
         Toast.show(message: Values().saveUserToastString, controller: self)

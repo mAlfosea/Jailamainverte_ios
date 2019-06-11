@@ -13,6 +13,7 @@
 		8423DBB222A969A3008C31AD /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423DBB122A969A3008C31AD /* SignInViewController.swift */; };
 		84509FC3229E7773005DAF3B /* UserDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84509FC2229E7773005DAF3B /* UserDataTests.swift */; };
 		84ABC69E22AA8D6700011477 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC69D22AA8D6700011477 /* Values.swift */; };
+		84ABC6A022AFD04D00011477 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC69F22AFD04D00011477 /* RealmManager.swift */; };
 		84AFEB292298113A002A5864 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB282298113A002A5864 /* AppDelegate.swift */; };
 		84AFEB2B2298113A002A5864 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */; };
 		84AFEB2E2298113A002A5864 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFEB2C2298113A002A5864 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		84509FCA229EB527005DAF3B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		84509FCB229EB527005DAF3B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84ABC69D22AA8D6700011477 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
+		84ABC69F22AFD04D00011477 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		84AFEB252298113A002A5864 /* Jailamainverte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jailamainverte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AFEB282298113A002A5864 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				8423DBAB22A914B9008C31AD /* Extensions.swift */,
 				8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */,
 				84ABC69D22AA8D6700011477 /* Values.swift */,
+				84ABC69F22AFD04D00011477 /* RealmManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				84DDBD1222A663500097A49E /* Switcher.swift in Sources */,
 				8423DBB222A969A3008C31AD /* SignInViewController.swift in Sources */,
 				84DDBD0E22A5380A0097A49E /* Tools.swift in Sources */,
+				84ABC6A022AFD04D00011477 /* RealmManager.swift in Sources */,
 				84AFEB3F2298154F002A5864 /* UserData.swift in Sources */,
 				84AFEB292298113A002A5864 /* AppDelegate.swift in Sources */,
 			);

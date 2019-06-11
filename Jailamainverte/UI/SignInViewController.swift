@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class SignInViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -45,20 +44,22 @@ class SignInViewController: UIViewController, UIImagePickerControllerDelegate, U
         let userImgName: String = "user_photo.png"
         saveImage(imageName: userImgName, sourceImg: ui_userImage.image!)
         
-        let realm = try! Realm()
-        try! realm.write {
-            if let user = UserData.getInstance().getUser() {
-                user.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
-            } else {
-                let newUser = User()
-                newUser.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
-                UserData.getInstance().updateUser(user: newUser)
-                realm.add(newUser)
-            }
-            UserData.getInstance().isLogged = true
-            Switcher.updateRootVC()
+        if let user = UserData.getInstance().getUser() {
+            let userTemp: User = User()
+            userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
+            
+            RealmManager().updateUser(user: userTemp)
+            
+        } else {
+            let userTemp = User()
+            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
+            
+            RealmManager().updateUser(user: userTemp)
         }
         
+        UserData.getInstance().isLogged = true
+        Switcher.updateRootVC()
+
         //dismiss(animated: true, completion: nil)
     }
     @IBAction func changePhotoButtonClicked(_ sender: Any) {

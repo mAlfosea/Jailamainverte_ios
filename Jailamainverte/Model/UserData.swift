@@ -15,7 +15,7 @@ class UserData {
     private static var instance: UserData? = nil
     
     private var _user: User?
-    private var _plantsArray: [Plant] = []
+    private var _plantsArray: Results<Plant>
     private var _wateringsArray: [Watering] = []
    
     private init() {
@@ -27,11 +27,10 @@ class UserData {
         print(realmConfig.fileURL as Any)
         Realm.Configuration.defaultConfiguration = realmConfig
         
-        let realm = try! Realm()
-        let user = realm.objects(User.self)
-        if user.count != 0 {
-            _user = user[0]
+        if let user = RealmManager().getUser() {
+            _user = user
         }
+        _plantsArray = RealmManager().getPlants()
         
     }
     
@@ -42,10 +41,7 @@ class UserData {
         return instance!
     }
     
-    func addPlant (plant: Plant) {
-        _plantsArray.append(plant)
-    }
-    func getPlants () -> [Plant] {
+    func getPlants () -> Results<Plant> {
         return _plantsArray
     }
     func getSpecificPlant (index : Int) -> Plant {

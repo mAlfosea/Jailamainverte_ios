@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol PlantCellDelegate {
     func wateringWasDone(forPlant plant:Plant)
@@ -55,12 +56,18 @@ class PlantTableViewCell: UITableViewCell {
             return
         }
         
-        plant._lastArrosage = Date()
-        ui_plant_next_arrosage.text = plant.getNextArrosageDate()
+        let plantTemp = Plant()
+        plantTemp.createPlant(newId: plant._plantId, newName: plant._plantName, newFamily: plant._plantFamily, newPlantImgPath: plant._plantImgPath, newLastArrosage: Date(), newArrosageCycle: plant._arrosageCycle, newArrosageHour: plant._cycleHour)
         
-        _plant = UserData.getInstance().getPlants().first(where: { (plant) -> Bool in
+        print(Date())
+        
+        RealmManager().updatePlant(oldPlant: plant, newPlant: plantTemp)
+        
+        ui_plant_next_arrosage.text = plantTemp.getNextArrosageDate()
+        
+        /*_plant = UserData.getInstance().getPlants().first(where: { (plant) -> Bool in
             return true
-        })
+        })*/
         
         /*for i in 0..<UserData.getInstance().getPlantsCount() {
             if plant._plantId == UserData.getInstance()._plantsArray[i]._plantId {
