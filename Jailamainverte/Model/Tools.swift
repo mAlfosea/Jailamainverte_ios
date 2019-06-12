@@ -15,7 +15,7 @@ func getImage (imageName: String) -> UIImage? {
     if fileManager.fileExists(atPath: imagePath){
         return UIImage(contentsOfFile: imagePath)
     } else {
-        return UIImage(named: "plantCard_plant_img")
+        return UIImage(named: "default_img")
     }
 }
 

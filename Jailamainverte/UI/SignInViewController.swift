@@ -48,13 +48,13 @@ class SignInViewController: UIViewController, UIImagePickerControllerDelegate, U
             let userTemp: User = User()
             userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
             
-            RealmManager().updateUser(user: userTemp)
+            UserData.getInstance().updateUser(user: userTemp)
             
         } else {
             let userTemp = User()
             userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
             
-            RealmManager().updateUser(user: userTemp)
+            UserData.getInstance().updateUser(user: userTemp)
         }
         
         UserData.getInstance().isLogged = true
@@ -118,7 +118,7 @@ class SignInViewController: UIViewController, UIImagePickerControllerDelegate, U
         } else {
             _userPassword = textField.text
         }*/
-        textField.setButtonEnableOff()
+        textField.resignFirstResponder()
         return true
     }
     

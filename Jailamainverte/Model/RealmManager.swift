@@ -20,18 +20,20 @@ class RealmManager {
             return nil
         }
     }
-    func updateUser(user: User) {
+    func updateUser(user: User) -> User {
         let realm = try! Realm()
+        var resultUser: User = User()
         try! realm.write {
             if let userTemp = UserData.getInstance().getUser() {
                 userTemp.createUser(userId: user._userId, userName: user._userName, userMail: user._userMail, userPassword: user._userPassword, userImagePath: user._userImage, notificationSetting: user._notificationSetting)
-                UserData.getInstance().updateUser(user: userTemp)
-                realm.add(userTemp)
+                //UserData.getInstance() = userTemp
+                resultUser = userTemp
             } else {
-                UserData.getInstance().updateUser(user: user)
                 realm.add(user)
+                resultUser = user
             }
         }
+        return resultUser
     }
     
     func addPlant(plant: Plant) {
@@ -45,20 +47,21 @@ class RealmManager {
         return realm.objects(Plant.self)
     }
     func updatePlant(oldPlant: Plant, newPlant: Plant) {
-        let plant = UserData.getInstance().getPlants().first(where: { (oldplant) -> Bool in
-            return true
-        })
-        print("je dois avoir: \(oldPlant) et j'ai \(newPlant)")
-        
         let realm = try! Realm()
         try! realm.write {
-            plant?._plantId = newPlant._plantId
-            plant?._plantName = newPlant._plantName
-            plant?._plantFamily = newPlant._plantFamily
-            plant?._plantImgPath = newPlant._plantImgPath
-            plant?._lastArrosage = newPlant._lastArrosage
-            plant?._cycleHour = newPlant._cycleHour
-            plant?._arrosageCycle = newPlant._arrosageCycle
+            oldPlant._plantId = newPlant._plantId
+            oldPlant._plantName = newPlant._plantName
+            oldPlant._plantFamily = newPlant._plantFamily
+            oldPlant._plantImgPath = newPlant._plantImgPath
+            oldPlant._lastArrosage = newPlant._lastArrosage
+            oldPlant._cycleHour = newPlant._cycleHour
+            oldPlant._arrosageCycle = newPlant._arrosageCycle
+        }
+    }
+    func waterPlant (plant: Plant) {
+        let realm = try! Realm()
+        try! realm.write {
+            plant._lastArrosage = Date()
         }
     }
     func removePlant (index: Int) {
@@ -66,5 +69,17 @@ class RealmManager {
         try! realm.write {
             realm.delete(UserData.getInstance().getSpecificPlant(index: index))
         }
+    }
+    
+    
+    func addWatering(watering: Watering) {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(watering)
+        }
+    }
+    func getWaterings() -> Results<Watering> {
+        let realm = try! Realm()
+        return realm.objects(Watering.self).sorted(byKeyPath: "wateringDate", ascending: false)
     }
 }

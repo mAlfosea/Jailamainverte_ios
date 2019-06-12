@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol PlantCellDelegate {
     func wateringWasDone(forPlant plant:Plant)
@@ -18,6 +17,7 @@ class PlantTableViewCell: UITableViewCell {
     @IBOutlet weak var ui_plant_img: UIImageView!
     @IBOutlet weak var ui_plant_name: UILabel!
     @IBOutlet weak var ui_plant_family: UILabel!
+    @IBOutlet weak var ui_plant_next_arrosage_bbackground: UIView!
     @IBOutlet weak var ui_plant_next_arrosage: UILabel!
     
     var delegate:PlantCellDelegate?
@@ -28,6 +28,7 @@ class PlantTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         ui_plant_img.layer.cornerRadius = 10
+        ui_plant_next_arrosage_bbackground.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -56,14 +57,9 @@ class PlantTableViewCell: UITableViewCell {
             return
         }
         
-        let plantTemp = Plant()
-        plantTemp.createPlant(newId: plant._plantId, newName: plant._plantName, newFamily: plant._plantFamily, newPlantImgPath: plant._plantImgPath, newLastArrosage: Date(), newArrosageCycle: plant._arrosageCycle, newArrosageHour: plant._cycleHour)
+        UserData.getInstance().waterPlant(plant: plant)
         
-        print(Date())
-        
-        RealmManager().updatePlant(oldPlant: plant, newPlant: plantTemp)
-        
-        ui_plant_next_arrosage.text = plantTemp.getNextArrosageDate()
+        ui_plant_next_arrosage.text = plant.getNextArrosageDate()
         
         /*_plant = UserData.getInstance().getPlants().first(where: { (plant) -> Bool in
             return true
@@ -77,7 +73,9 @@ class PlantTableViewCell: UITableViewCell {
         }*/
         
         if let user = UserData.getInstance().getUser() {
-            UserData.getInstance().addWatering(watering: Watering(user: user._userName, plant: plant, wateringDate: plant._lastArrosage))
+            let watering : Watering = Watering()
+            watering.createWatering(user: user._userName, plant: plant, wateringDate: plant._lastArrosage)
+            UserData.getInstance().addWatering(watering: watering)
         }
         
         delegate?.wateringWasDone(forPlant: plant)

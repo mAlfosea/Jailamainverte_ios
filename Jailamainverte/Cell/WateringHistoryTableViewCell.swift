@@ -34,11 +34,11 @@ class WateringHistoryTableViewCell: UITableViewCell {
         
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-        let date:String = formatter.string(from: watering.wateringDate)
+        let date:String = formatter.string(from: watering.wateringDate!)
         
         formatter.timeStyle = .short
         formatter.dateStyle = .none
-        let hour:String = formatter.string(from: watering.wateringDate)
+        let hour:String = formatter.string(from: watering.wateringDate!)
         
         if  let user = UserData.getInstance().getUser(),
             let image = getImage(imageName: user._userImage) {
@@ -46,7 +46,7 @@ class WateringHistoryTableViewCell: UITableViewCell {
             ui_plantImage.createBorder(color: UIColor.ThemeColors.green, width: 3)
         }
         
-        ui_historyLabel.text = watering.user + " \(Values().wateringSentenceString) \(watering.plant._plantName)"
+        ui_historyLabel.text = watering.user + " \(Values().wateringSentenceString) \(watering.plant!._plantName)"
         ui_dateLabel.text = "\(hour)\n\(date)"
         
     }

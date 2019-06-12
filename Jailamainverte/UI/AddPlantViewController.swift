@@ -68,7 +68,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let plant: Plant = Plant()
         plant.createPlant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
         
-        RealmManager().addPlant(plant: plant)
+        UserData.getInstance().addPlant(plant: plant)
         
         if let tabController = presentingViewController as? UITabBarController,
             let navController = tabController.selectedViewController as? UINavigationController,
@@ -209,8 +209,8 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .none
-        _wateringHour = hourPicker.date
-        ui_watering_hour_field.text = formatter.string(from: hourPicker.date)
+        _wateringHour = hourPicker.date.nearestThirtyMinutes()
+        ui_watering_hour_field.text = formatter.string(from: hourPicker.date.nearestThirtyMinutes())
         self.view.endEditing(true)
     }
     

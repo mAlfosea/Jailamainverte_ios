@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Watering {
+class Watering: Object {
     
-    let user: String
-    let plant: Plant
-    let wateringDate: Date
+    @objc dynamic var user: String = ""
+    @objc dynamic var plant: Plant?
+    @objc dynamic var wateringDate: Date?
     
-    init(user: String, plant: Plant, wateringDate: Date) {
+    func createWatering (user: String, plant: Plant, wateringDate: Date) {
         self.user = user
         self.plant = plant
         self.wateringDate = wateringDate

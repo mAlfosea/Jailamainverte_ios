@@ -13,10 +13,11 @@ import RealmSwift
 class UserData {
     
     private static var instance: UserData? = nil
+    private var _realmManager: RealmManager
     
     private var _user: User?
     private var _plantsArray: Results<Plant>
-    private var _wateringsArray: [Watering] = []
+    private var _wateringsArray: Results<Watering>
    
     private init() {
         //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire
@@ -24,14 +25,16 @@ class UserData {
         
         var realmConfig = Realm.Configuration.defaultConfiguration
         realmConfig.deleteRealmIfMigrationNeeded = true
-        print(realmConfig.fileURL as Any)
+        //print(realmConfig.fileURL as Any)
         Realm.Configuration.defaultConfiguration = realmConfig
         
-        if let user = RealmManager().getUser() {
+        _realmManager = RealmManager()
+        
+        if let user = _realmManager.getUser() {
             _user = user
         }
-        _plantsArray = RealmManager().getPlants()
-        
+        _plantsArray = _realmManager.getPlants()
+        _wateringsArray = _realmManager.getWaterings()
     }
     
     static func getInstance() -> UserData {
@@ -50,12 +53,29 @@ class UserData {
     func getPlantsCount () -> Int {
         return _plantsArray.count
     }
+    func addPlant (plant: Plant) {
+        _realmManager.addPlant(plant: plant)
+    }
+    func updatePlant (oldPlant: Plant, newPlant: Plant) {
+        if let tempPlant = getPlants().first(where: { (oldplant) -> Bool in
+            return true
+        }) {
+            _realmManager.updatePlant(oldPlant: tempPlant, newPlant: newPlant)
+        }
+    }
+    func waterPlant (plant: Plant) {
+        _realmManager.waterPlant (plant: plant)
+    }
+    func removePlant (index: Int) {
+        _realmManager.removePlant(index: index)
+    }
     
     
     func addWatering (watering: Watering) {
-        _wateringsArray.insert(watering, at: 0)
+        //_wateringsArray.insert(watering, at: 0)
+        _realmManager.addWatering(watering: watering)
     }
-    func getWaterings () -> [Watering] {
+    func getWaterings () -> Results<Watering> {
         return _wateringsArray
     }
     func getSpecificWatering (index : Int) -> Watering {
@@ -67,7 +87,16 @@ class UserData {
     
     
     func updateUser (user: User) {
-        _user = user
+        
+       _user = _realmManager.updateUser(user: user)
+       /* if let userTemp = _user {
+            userTemp.createUser(userId: user._userId, userName: user._userName, userMail: user._userMail, userPassword: user._userPassword, userImagePath: user._userImage, notificationSetting: user._notificationSetting)
+            _user = userTemp
+            _realmManager.updateUser(user: userTemp)
+        } else {
+            _user = user
+            _realmManager.updateUser(user: user)
+        }*/
     }
     func getUser () -> User? {
         return _user

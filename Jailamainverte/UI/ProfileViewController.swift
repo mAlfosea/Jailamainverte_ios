@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else if textField == ui_userMailField {
             _userMail = textField.text
         }
-        textField.setButtonEnableOff()
+        textField.resignFirstResponder()
         return true
     }
     @IBAction func changeNotificationsSwitched(_ sender: UISwitch) {
@@ -138,13 +138,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             let userTemp: User = User()
             userTemp.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
             
-            RealmManager().updateUser(user: userTemp)
+            UserData.getInstance().updateUser(user: userTemp)
             
         } else {
             let userTemp = User()
             userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
             
-            RealmManager().updateUser(user: userTemp)
+            UserData.getInstance().updateUser(user: userTemp)
             
         }
         

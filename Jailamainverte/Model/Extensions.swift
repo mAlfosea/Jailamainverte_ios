@@ -45,3 +45,18 @@ extension UITextField {
         self.resignFirstResponder()
     }
 }
+
+extension Date {
+    func nearestThirtyMinutes() -> Date {
+        let cal = Calendar.current
+        let startOfHour = cal.dateInterval(of: .hour, for: self)!.start
+        var minutes = self.timeIntervalSince(startOfHour)
+        minutes = (minutes / 60).rounded()
+        if minutes >= 30 {
+            minutes = 30
+        } else {
+            minutes = 0
+        }
+        return startOfHour.addingTimeInterval(minutes * 60)
+    }
+}

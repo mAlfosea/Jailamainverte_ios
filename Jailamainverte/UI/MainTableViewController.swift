@@ -77,7 +77,9 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RealmManager().removePlant(index: indexPath.row)
+        UserData.getInstance().removePlant(index: indexPath.row)
+        tableView.reloadData()
+        //tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     /*

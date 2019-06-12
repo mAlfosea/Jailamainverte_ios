@@ -36,8 +36,14 @@ class Plant: Object {
         var nextArrosageString: String = "NONE"
         
         if let nextArrosage = Calendar.current.date(byAdding: dateComponent, to: _lastArrosage) {
+            
             let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE"
+            formatter.timeStyle = .none
+            formatter.dateStyle = .short
+            formatter.doesRelativeDateFormatting = true
+            formatter.locale = Locale.current
+            
+            //formatter.dateFormat = "EEEE"
             nextArrosageString = formatter.string(from: nextArrosage)
             
             formatter.timeStyle = .short

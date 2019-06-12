@@ -14,6 +14,7 @@
 		84509FC3229E7773005DAF3B /* UserDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84509FC2229E7773005DAF3B /* UserDataTests.swift */; };
 		84ABC69E22AA8D6700011477 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC69D22AA8D6700011477 /* Values.swift */; };
 		84ABC6A022AFD04D00011477 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABC69F22AFD04D00011477 /* RealmManager.swift */; };
+		84ABC6A422B0FCAA00011477 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ABC6A322B0FCA900011477 /* app_icon.png */; };
 		84AFEB292298113A002A5864 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB282298113A002A5864 /* AppDelegate.swift */; };
 		84AFEB2B2298113A002A5864 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */; };
 		84AFEB2E2298113A002A5864 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFEB2C2298113A002A5864 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		84509FCB229EB527005DAF3B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84ABC69D22AA8D6700011477 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
 		84ABC69F22AFD04D00011477 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		84ABC6A322B0FCA900011477 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon.png; path = Assets.xcassets/app_icon.imageset/app_icon.png; sourceTree = "<group>"; };
 		84AFEB252298113A002A5864 /* Jailamainverte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jailamainverte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AFEB282298113A002A5864 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AFEB2A2298113A002A5864 /* AddPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,16 @@
 			path = JailamainverteTests;
 			sourceTree = "<group>";
 		};
+		84ABC6A522B1168F00011477 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */,
+				8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */,
+				84CD9111229BCD9B00A65CDB /* PlantTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		84AFEB1C2298113A002A5864 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +159,7 @@
 		84AFEB272298113A002A5864 /* Jailamainverte */ = {
 			isa = PBXGroup;
 			children = (
+				84ABC6A522B1168F00011477 /* Cell */,
 				84AFEB3D22981514002A5864 /* Model */,
 				84AFEB3A22981158002A5864 /* UI */,
 				84AFEB282298113A002A5864 /* AppDelegate.swift */,
@@ -154,6 +167,7 @@
 				84AFEB2F2298113B002A5864 /* Assets.xcassets */,
 				84AFEB312298113B002A5864 /* LaunchScreen.storyboard */,
 				84AFEB342298113B002A5864 /* Info.plist */,
+				84ABC6A322B0FCA900011477 /* app_icon.png */,
 			);
 			path = Jailamainverte;
 			sourceTree = "<group>";
@@ -176,15 +190,12 @@
 			children = (
 				84AFEB3E2298154F002A5864 /* UserData.swift */,
 				84AFEB40229816EB002A5864 /* Plant.swift */,
-				84CD9111229BCD9B00A65CDB /* PlantTableViewCell.swift */,
 				84DDBD0D22A5380A0097A49E /* Tools.swift */,
 				84DDBD1122A663500097A49E /* Switcher.swift */,
 				84DDBD1522A69D1E0097A49E /* Watering.swift */,
-				84DDBD1722A6B1490097A49E /* WateringHistoryTableViewCell.swift */,
 				84DDBD1922A7B8DC0097A49E /* Toast.swift */,
 				84DDBD1D22A818FF0097A49E /* User.swift */,
 				8423DBAB22A914B9008C31AD /* Extensions.swift */,
-				8423DBAF22A950AF008C31AD /* NewUserTableViewCell.swift */,
 				84ABC69D22AA8D6700011477 /* Values.swift */,
 				84ABC69F22AFD04D00011477 /* RealmManager.swift */,
 			);
@@ -292,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84ABC6A422B0FCAA00011477 /* app_icon.png in Resources */,
 				84AFEB332298113B002A5864 /* LaunchScreen.storyboard in Resources */,
 				84AFEB302298113B002A5864 /* Assets.xcassets in Resources */,
 				84AFEB2E2298113A002A5864 /* Main.storyboard in Resources */,
