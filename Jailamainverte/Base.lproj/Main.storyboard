@@ -153,6 +153,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUH-Xu-EdW">
+                                <rect key="frame" x="233.5" y="617.5" width="30" height="34"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="D"/>
+                                <connections>
+                                    <action selector="deleteButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g4i-b7-nFd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.26274509800000001" green="0.62745098040000002" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -162,6 +170,7 @@
                             <constraint firstItem="wbM-8c-Fxy" firstAttribute="top" secondItem="tPM-fh-Gl5" secondAttribute="bottom" constant="40" id="5ZB-0C-asv"/>
                             <constraint firstItem="fUI-68-Ia9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8e1-mN-KS2"/>
                             <constraint firstItem="gPs-Y5-14J" firstAttribute="top" secondItem="ffn-Sn-N1o" secondAttribute="bottom" constant="10" id="9Wa-9O-GtQ"/>
+                            <constraint firstItem="VUH-Xu-EdW" firstAttribute="centerY" secondItem="wbM-8c-Fxy" secondAttribute="centerY" id="BL5-Dx-Y4h"/>
                             <constraint firstItem="Qr7-aM-cTN" firstAttribute="top" secondItem="i3g-zR-8JN" secondAttribute="bottom" constant="20" id="GlM-zC-1UA"/>
                             <constraint firstItem="gPs-Y5-14J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IyX-Hu-Phl"/>
                             <constraint firstItem="INQ-fz-7ns" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="JUJ-o2-fVy"/>
@@ -186,6 +195,7 @@
                             <constraint firstItem="45i-in-dgY" firstAttribute="centerY" secondItem="gPs-Y5-14J" secondAttribute="centerY" id="n2e-hi-O5t"/>
                             <constraint firstItem="vdv-XM-ukC" firstAttribute="top" secondItem="9bt-SC-g2Z" secondAttribute="bottom" constant="20" id="nkC-y9-n1E"/>
                             <constraint firstItem="45i-in-dgY" firstAttribute="leading" secondItem="gPs-Y5-14J" secondAttribute="trailing" constant="10" id="sSq-NQ-ob2"/>
+                            <constraint firstItem="VUH-Xu-EdW" firstAttribute="leading" secondItem="wbM-8c-Fxy" secondAttribute="trailing" constant="10" id="ssy-Ir-xtF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i3g-zR-8JN" secondAttribute="trailing" constant="50" id="zDU-mg-5W7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -193,12 +203,14 @@
                     <navigationItem key="navigationItem" title="Ajouter une plante" id="OOj-Kc-hb2"/>
                     <connections>
                         <outlet property="ui_change_photo_button" destination="vUv-i1-hHc" id="Bll-pe-Gn7"/>
+                        <outlet property="ui_delete_button" destination="VUH-Xu-EdW" id="rAf-hL-l52"/>
                         <outlet property="ui_last_watering_field" destination="gPs-Y5-14J" id="49c-zw-cAz"/>
                         <outlet property="ui_plant_family_field" destination="Nli-dM-tX6" id="hsn-jR-X7u"/>
                         <outlet property="ui_plant_img" destination="Qr7-aM-cTN" id="6i6-la-Bqh"/>
                         <outlet property="ui_plant_name_label" destination="9bt-SC-g2Z" id="ahZ-gp-el1"/>
                         <outlet property="ui_select_date_button" destination="45i-in-dgY" id="nLM-bc-HNR"/>
                         <outlet property="ui_submit_button" destination="wbM-8c-Fxy" id="dUJ-Yk-s8e"/>
+                        <outlet property="ui_view_label" destination="i3g-zR-8JN" id="iJc-Ib-yG5"/>
                         <outlet property="ui_watering_cycle_label" destination="ZHM-Rr-JNJ" id="XVC-ug-Syq"/>
                         <outlet property="ui_watering_hour_field" destination="Agh-sh-fe3" id="MMC-jp-lcu"/>
                     </connections>
@@ -327,6 +339,7 @@
                                     <outlet property="ui_plant_name" destination="HFg-E0-t9z" id="WCB-8n-W98"/>
                                     <outlet property="ui_plant_next_arrosage" destination="mmz-Rk-7yR" id="4sv-at-VoD"/>
                                     <outlet property="ui_plant_next_arrosage_bbackground" destination="ZIN-TA-xkD" id="8nM-m2-rF4"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="modifyPlant" trigger="accessoryAction" id="9aE-Fc-EGL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addPlantCell" rowHeight="300" id="S9E-bq-uBD" customClass="NewUserTableViewCell" customModule="Jailamainverte" customModuleProvider="target">
@@ -344,7 +357,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="q7Z-TW-Re4"/>
+                                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="addPlant" id="q7Z-TW-Re4"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New here ? Add your first plant!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhx-11-tvL">
@@ -381,7 +394,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="wvv-8y-zCM">
                             <color key="tintColor" red="0.56470588239999997" green="0.14901960780000001" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="H4x-0b-vFv"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="addPlant" id="H4x-0b-vFv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1104,6 +1117,6 @@
         <image name="share" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="H4x-0b-vFv"/>
+        <segue reference="9aE-Fc-EGL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -49,13 +49,16 @@ class RealmManager {
     func updatePlant(oldPlant: Plant, newPlant: Plant) {
         let realm = try! Realm()
         try! realm.write {
-            oldPlant._plantId = newPlant._plantId
+            realm.add(newPlant, update: .all)
+           // oldPlant.createPlant(newId: oldPlant._plantId, newName: newPlant._plantName, newFamily: newPlant._plantFamily, newPlantImgPath: newPlant._plantImgPath, newLastArrosage: newPlant._lastArrosage, newArrosageCycle: newPlant._arrosageCycle, newArrosageHour: newPlant._cycleHour)
+            
+            /*oldPlant._plantId = newPlant._plantId
             oldPlant._plantName = newPlant._plantName
             oldPlant._plantFamily = newPlant._plantFamily
             oldPlant._plantImgPath = newPlant._plantImgPath
             oldPlant._lastArrosage = newPlant._lastArrosage
             oldPlant._cycleHour = newPlant._cycleHour
-            oldPlant._arrosageCycle = newPlant._arrosageCycle
+            oldPlant._arrosageCycle = newPlant._arrosageCycle*/
         }
     }
     func waterPlant (plant: Plant) {

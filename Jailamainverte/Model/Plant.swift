@@ -10,6 +10,9 @@ import Foundation
 import RealmSwift
 
 class Plant: Object {
+    override static func primaryKey() -> String? {
+        return "_plantId"
+    }
     
     @objc dynamic var _plantId: Int = 0
     @objc dynamic var _plantName: String = ""
@@ -18,6 +21,8 @@ class Plant: Object {
     @objc dynamic var _lastArrosage: Date = Date()
     @objc dynamic var _cycleHour: Date = Date()
     @objc dynamic var _arrosageCycle: Int = 0
+    
+    
     
     func createPlant (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
         _plantId = newId

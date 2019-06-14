@@ -16,9 +16,15 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var ui_last_watering_field: UITextField!
     @IBOutlet weak var ui_watering_hour_field: UITextField!
     @IBOutlet weak var ui_submit_button: UIButton!
+    @IBOutlet weak var ui_delete_button: UIButton!
     @IBOutlet weak var ui_change_photo_button: UIButton!
     @IBOutlet weak var ui_select_date_button: UIButton!
     @IBOutlet weak var ui_watering_cycle_label: UILabel!
+    @IBOutlet weak var ui_view_label: UILabel!
+    
+    var _isAddingPlant: Bool = true
+    var _plantToModify: Plant?
+    var _plantRowID: Int?
     
     var _plantName: String = ""
     var _plantFamily: String = ""
@@ -34,41 +40,106 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        customizeUIElements()
     }
     
-    func customizeUIElements () {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         showFamilyPicker()
         showDatePicker()
         showHourPicker()
         
-        doneDatePicker()
-        doneHourPicker()
-        
         familyPicker.delegate = self
         familyPicker.dataSource = self
+        ui_plant_name_label.delegate = self
+        
+        ui_change_photo_button.layer.cornerRadius = 5
+        ui_plant_img.layer.cornerRadius = 5
+        ui_plant_img.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
+        
+        ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        ui_submit_button.layer.cornerRadius = 5
+        
+        ui_delete_button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        ui_delete_button.layer.cornerRadius = 5
+        
+        if _isAddingPlant {
+            showAddPlantUI()
+        } else {
+            showModifyPlantUI()
+        }
+    }
+    
+    func showAddPlantUI () {
+        ui_view_label.text = "Add plant"
+        ui_submit_button.setTitle("Add", for: .normal)
+        ui_delete_button.isHidden = true
+        
+        doneDatePicker()
+        doneHourPicker()
         
         _plantFamily = Values().plantsFamily[0]
         ui_plant_family_field.text = _plantFamily
         
-        ui_plant_name_label.delegate = self
         ui_watering_cycle_label.text = String(_wateringCycle) + Values().dayMinString
-        ui_submit_button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        ui_submit_button.layer.cornerRadius = 5
-        ui_plant_img.layer.cornerRadius = 5
-        ui_change_photo_button.layer.cornerRadius = 5
-        ui_plant_img.createBorder(color: UIColor.ThemeColors.bordeaux, width: 3)
+    }
+    
+    func showModifyPlantUI () {
+        ui_view_label.text = "Modify plant"
+        ui_submit_button.setTitle("Modify", for: .normal)
+        ui_delete_button.isHidden = false
+        
+        if let plant = _plantToModify {
+            
+            _plantName = plant._plantName
+            _plantFamily = plant._plantFamily
+            _wateringCycle = plant._arrosageCycle
+            datePicker.date = plant._lastArrosage
+            hourPicker.date = plant._cycleHour
+            
+            doneDatePicker()
+            doneHourPicker()
+            
+            ui_plant_name_label.text = plant._plantName
+            ui_plant_img.image = getImage(imageName: plant._plantImgPath)
+            ui_plant_family_field.text = plant._plantFamily
+            ui_watering_cycle_label.text = String(plant._arrosageCycle) + Values().dayMinString
+        }
     }
     
     @IBAction func addButtonSubmit(_ sender: Any) {
-        let plantImgName: String = "plant_\(Date().timeIntervalSince1970).png"
-        saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
+        if _isAddingPlant {
+            let plantImgName: String = "plant_\(Date().timeIntervalSince1970).png"
+            saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
+            
+            let plant: Plant = Plant()
+            plant.createPlant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+            
+            UserData.getInstance().addPlant(plant: plant)
+          
+        } else {
+            if let plant = _plantToModify {
+                let plantImgName: String = plant._plantImgPath
+                saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
+                
+                let plantTemp: Plant = Plant()
+                plantTemp.createPlant(newId: plant._plantId, newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+                
+                UserData.getInstance().updatePlant(oldPlant: plant, newPlant: plantTemp)
+            }
+        }
         
-        let plant: Plant = Plant()
-        plant.createPlant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
-        
-        UserData.getInstance().addPlant(plant: plant)
+        if let tabController = presentingViewController as? UITabBarController,
+            let navController = tabController.selectedViewController as? UINavigationController,
+            let mainTableVC = navController.topViewController as? MainTableViewController {
+            mainTableVC.datasUpdated = true
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func deleteButtonClicked(_ sender: Any) {
+        if let index = _plantRowID {
+            UserData.getInstance().removePlant(index: index)
+        }
         
         if let tabController = presentingViewController as? UITabBarController,
             let navController = tabController.selectedViewController as? UINavigationController,

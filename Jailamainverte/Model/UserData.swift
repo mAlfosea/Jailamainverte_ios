@@ -57,9 +57,11 @@ class UserData {
         _realmManager.addPlant(plant: plant)
     }
     func updatePlant (oldPlant: Plant, newPlant: Plant) {
-        if let tempPlant = getPlants().first(where: { (oldplant) -> Bool in
-            return true
+        if let tempPlant = getPlants().first(where: { (plant) -> Bool in
+            
+            return plant._plantId == oldPlant._plantId
         }) {
+            print ("ancien: \(oldPlant._plantName) - la nouvelle \(newPlant._plantName) - celle que je trouve \(tempPlant._plantName)")
             _realmManager.updatePlant(oldPlant: tempPlant, newPlant: newPlant)
         }
     }

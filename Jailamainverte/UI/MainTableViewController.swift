@@ -77,9 +77,25 @@ class MainTableViewController: UITableViewController, PlantCellDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UserData.getInstance().removePlant(index: indexPath.row)
-        tableView.reloadData()
+        performSegue(withIdentifier: "modifyPlant", sender: self)
+        //UserData.getInstance().removePlant(index: indexPath.row)
+        //tableView.reloadData()
+        
         //tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addPlant" {
+            if let addPlantVC = segue.destination as? AddPlantViewController {
+                addPlantVC._isAddingPlant = true
+            }
+        } else if segue.identifier == "modifyPlant" {
+            if let addPlantVC = segue.destination as? AddPlantViewController {
+                addPlantVC._isAddingPlant = false
+                addPlantVC._plantToModify = UserData.getInstance().getSpecificPlant(index: tableView.indexPathForSelectedRow!.row)
+                addPlantVC._plantRowID = tableView.indexPathForSelectedRow!.row
+            }
+        }
     }
     
     /*
