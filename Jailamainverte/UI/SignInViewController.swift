@@ -46,13 +46,13 @@ class SignInViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         if let user = UserData.getInstance().getUser() {
             let userTemp: User = User()
-            userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
+            userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
             
             UserData.getInstance().updateUser(user: userTemp)
             
         } else {
             let userTemp = User()
-            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName, notificationSetting: true)
+            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
             
             UserData.getInstance().updateUser(user: userTemp)
         }

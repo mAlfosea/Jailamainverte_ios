@@ -16,14 +16,12 @@ class User: Object {
     @objc dynamic var _userMail: String = ""
     @objc dynamic var _userPassword: String = ""
     @objc dynamic var _userImage: String = ""
-    @objc dynamic var _notificationSetting: Bool = true
     
-    func createUser (userId: Int, userName: String, userMail: String, userPassword: String, userImagePath: String, notificationSetting: Bool) {
+    func createUser (userId: Int, userName: String, userMail: String, userPassword: String, userImagePath: String) {
         _userId = userId
         _userName = userName
         _userMail = userMail
         _userPassword = userPassword
         _userImage = userImagePath
-        _notificationSetting = notificationSetting
     }
 }

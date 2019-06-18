@@ -25,7 +25,7 @@ class RealmManager {
         var resultUser: User = User()
         try! realm.write {
             if let userTemp = UserData.getInstance().getUser() {
-                userTemp.createUser(userId: user._userId, userName: user._userName, userMail: user._userMail, userPassword: user._userPassword, userImagePath: user._userImage, notificationSetting: user._notificationSetting)
+                userTemp.createUser(userId: user._userId, userName: user._userName, userMail: user._userMail, userPassword: user._userPassword, userImagePath: user._userImage)
                 //UserData.getInstance() = userTemp
                 resultUser = userTemp
             } else {
@@ -44,7 +44,7 @@ class RealmManager {
     }
     func getPlants() -> Results<Plant> {
         let realm = try! Realm()
-        return realm.objects(Plant.self)
+        return realm.objects(Plant.self).filter("_deleted = false")
     }
     func updatePlant(oldPlant: Plant, newPlant: Plant) {
         let realm = try! Realm()
@@ -70,7 +70,8 @@ class RealmManager {
     func removePlant (index: Int) {
         let realm = try! Realm()
         try! realm.write {
-            realm.delete(UserData.getInstance().getSpecificPlant(index: index))
+            UserData.getInstance().getSpecificPlant(index: index)._deleted = true
+            //realm.delete(UserData.getInstance().getSpecificPlant(index: index))
         }
     }
     

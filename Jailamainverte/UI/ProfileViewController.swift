@@ -54,12 +54,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         _userMail = user._userMail
         _userPassword = user._userPassword
         _userPhotoPath = user._userImage
-        _userNotification = user._notificationSetting
+        _userNotification = UserData.getInstance().wateringNotifications
         
-        ui_userPhotoImage.image = getImage(imageName: user._userImage)
+        if let userImage = getImage(imageName: user._userImage) {
+            ui_userPhotoImage.setImageScaleToFill(image: userImage)
+        }
         ui_userNameField.text = user._userName
         ui_userMailField.text = user._userMail
-        ui_notificationsSwitch.isOn = user._notificationSetting
+        if let userNotifications = _userNotification {
+            ui_notificationsSwitch.isOn = userNotifications
+        }
     }
     
     @IBAction func changePhotoClicked(_ sender: Any) {
@@ -136,16 +140,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if let user = UserData.getInstance().getUser() {
             let userTemp: User = User()
-            userTemp.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+            userTemp.createUser(userId: user._userId, userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName)
             
             UserData.getInstance().updateUser(user: userTemp)
             
         } else {
             let userTemp = User()
-            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName, notificationSetting: _userNotification!)
+            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: _userName!, userMail: _userMail!, userPassword: _userPassword!, userImagePath: userImgName)
             
             UserData.getInstance().updateUser(user: userTemp)
             
+        }
+        
+        if let wateringNotifications = _userNotification {
+            UserData.getInstance().wateringNotifications = wateringNotifications
         }
         
         Toast.show(message: Values().saveUserToastString, controller: self)

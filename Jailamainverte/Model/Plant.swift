@@ -21,10 +21,11 @@ class Plant: Object {
     @objc dynamic var _lastArrosage: Date = Date()
     @objc dynamic var _cycleHour: Date = Date()
     @objc dynamic var _arrosageCycle: Int = 0
+    @objc dynamic var _deleted: Bool = false
     
     
     
-    func createPlant (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date) {
+    func createPlant (newId: Int, newName: String, newFamily: String, newPlantImgPath: String, newLastArrosage: Date, newArrosageCycle: Int, newArrosageHour: Date, newDeleted: Bool) {
         _plantId = newId
         _plantName = newName
         _plantFamily = newFamily
@@ -32,6 +33,7 @@ class Plant: Object {
         _lastArrosage = newLastArrosage
         _arrosageCycle = newArrosageCycle
         _cycleHour = newArrosageHour
+        _deleted = newDeleted
     }
     
     func getNextArrosageDate () -> String {

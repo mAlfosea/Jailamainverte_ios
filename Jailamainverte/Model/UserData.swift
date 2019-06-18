@@ -22,6 +22,7 @@ class UserData {
     private init() {
         //_plantsArray = (count > 5) ? ok : null  >> exemple de ternaire
         UserDefaults.standard.register(defaults: [Values().isLoggedUserDefaultName : false])
+        UserDefaults.standard.register(defaults: [Values().wateringNotificationsUserDefaultName : true])
         
         var realmConfig = Realm.Configuration.defaultConfiguration
         realmConfig.deleteRealmIfMigrationNeeded = true
@@ -58,10 +59,9 @@ class UserData {
     }
     func updatePlant (oldPlant: Plant, newPlant: Plant) {
         if let tempPlant = getPlants().first(where: { (plant) -> Bool in
-            
             return plant._plantId == oldPlant._plantId
         }) {
-            print ("ancien: \(oldPlant._plantName) - la nouvelle \(newPlant._plantName) - celle que je trouve \(tempPlant._plantName)")
+            //print ("ancien: \(oldPlant._plantName) - la nouvelle \(newPlant._plantName) - celle que je trouve \(tempPlant._plantName)")
             _realmManager.updatePlant(oldPlant: tempPlant, newPlant: newPlant)
         }
     }
@@ -74,7 +74,6 @@ class UserData {
     
     
     func addWatering (watering: Watering) {
-        //_wateringsArray.insert(watering, at: 0)
         _realmManager.addWatering(watering: watering)
     }
     func getWaterings () -> Results<Watering> {
@@ -111,6 +110,15 @@ class UserData {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Values().isLoggedUserDefaultName)
+        }
+    }
+    
+    var wateringNotifications: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Values().wateringNotificationsUserDefaultName)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Values().wateringNotificationsUserDefaultName)
         }
     }
 }

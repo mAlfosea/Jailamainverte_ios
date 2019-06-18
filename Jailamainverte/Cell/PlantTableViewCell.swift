@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PlantCellDelegate {
+protocol PlantCellDelegate: class {
     func wateringWasDone(forPlant plant:Plant)
 }
 
@@ -20,7 +20,7 @@ class PlantTableViewCell: UITableViewCell {
     @IBOutlet weak var ui_plant_next_arrosage_bbackground: UIView!
     @IBOutlet weak var ui_plant_next_arrosage: UILabel!
     
-    var delegate:PlantCellDelegate?
+    weak var delegate:PlantCellDelegate?
     var _plant: Plant?
     
     

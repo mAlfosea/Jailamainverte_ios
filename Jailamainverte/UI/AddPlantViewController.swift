@@ -37,13 +37,11 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let familyPicker = UIPickerView()
     
     var _imagePicker: UIImagePickerController!
+    var _imageToSave:UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        
         
         showFamilyPicker()
         showDatePicker()
@@ -70,23 +68,29 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
     func showAddPlantUI () {
-        ui_view_label.text = "Add plant"
-        ui_submit_button.setTitle("Add", for: .normal)
+        let values = Values()
+        ui_view_label.text = values.addPlantTitleString
+        ui_submit_button.setTitle(values.addPlantButtonString, for: .normal)
         ui_delete_button.isHidden = true
         
         doneDatePicker()
         doneHourPicker()
         
-        _plantFamily = Values().plantsFamily[0]
+        _plantFamily = values.plantsFamily[0]
         ui_plant_family_field.text = _plantFamily
         
-        ui_watering_cycle_label.text = String(_wateringCycle) + Values().dayMinString
+        ui_watering_cycle_label.text = String(_wateringCycle) + values.dayMinString
     }
     
     func showModifyPlantUI () {
-        ui_view_label.text = "Modify plant"
-        ui_submit_button.setTitle("Modify", for: .normal)
+        let values = Values()
+        ui_view_label.text = values.modifyPlantTitleString
+        ui_submit_button.setTitle(values.modifyPlantButtonString, for: .normal)
         ui_delete_button.isHidden = false
         
         if let plant = _plantToModify {
@@ -101,9 +105,12 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
             doneHourPicker()
             
             ui_plant_name_label.text = plant._plantName
-            ui_plant_img.image = getImage(imageName: plant._plantImgPath)
+            
+            if let plantImage = getImage(imageName: plant._plantImgPath) {
+                ui_plant_img.setImageScaleToFill(image: plantImage)
+            }
             ui_plant_family_field.text = plant._plantFamily
-            ui_watering_cycle_label.text = String(plant._arrosageCycle) + Values().dayMinString
+            ui_watering_cycle_label.text = String(plant._arrosageCycle) + values.dayMinString
         }
     }
     
@@ -113,7 +120,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
             saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
             
             let plant: Plant = Plant()
-            plant.createPlant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+            plant.createPlant(newId: Int(Date().timeIntervalSince1970), newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour, newDeleted: false)
             
             UserData.getInstance().addPlant(plant: plant)
           
@@ -123,7 +130,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
                 
                 let plantTemp: Plant = Plant()
-                plantTemp.createPlant(newId: plant._plantId, newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour)
+                plantTemp.createPlant(newId: plant._plantId, newName: _plantName, newFamily: _plantFamily, newPlantImgPath: plantImgName, newLastArrosage: _lastWatering, newArrosageCycle: _wateringCycle, newArrosageHour: _wateringHour, newDeleted: plant._deleted)
                 
                 UserData.getInstance().updatePlant(oldPlant: plant, newPlant: plantTemp)
             }
