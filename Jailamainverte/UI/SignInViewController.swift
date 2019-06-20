@@ -11,11 +11,15 @@ import UIKit
 class SignInViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var ui_userImage: UIImageView!
-    @IBOutlet weak var ui_userMailField: UITextField!
-    @IBOutlet weak var ui_userPasswordField: UITextField!
-    @IBOutlet weak var ui_userPasswordConfirmField: UITextField!
-    @IBOutlet weak var ui_userNickname: UITextField!
+    @IBOutlet weak var ui_userMailField: CheckedTextField!
+    @IBOutlet weak var ui_userPasswordField: CheckedTextField!
+    @IBOutlet weak var ui_userPasswordConfirmField: CheckedTextField!
+    @IBOutlet weak var ui_userNickname: CheckedTextField!
     @IBOutlet weak var ui_signButton: UIButton!
+    
+    @IBOutlet weak var ui_mail_error_label: UILabel!
+    @IBOutlet weak var ui_password_error_label: UILabel!
+    @IBOutlet weak var ui_nickname_error_label: UILabel!
     
     var _imagePicker: UIImagePickerController!
     
@@ -32,35 +36,89 @@ class SignInViewController: UIViewController, UIImagePickerControllerDelegate, U
         ui_signButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         
         ui_userMailField.delegate = self
+        ui_userMailField.addEmptyCheck()
+        ui_mail_error_label.isHidden = true
+        
         ui_userPasswordField.delegate = self
+        ui_userPasswordField.addEmptyCheck()
+        ui_password_error_label.isHidden = true
+        
         ui_userPasswordConfirmField.delegate = self
+        ui_userPasswordConfirmField.addEmptyCheck()
+        
         ui_userNickname.delegate = self
+        ui_userNickname.addEmptyCheck()
+        ui_nickname_error_label.isHidden = true
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func signButtonClicked(_ sender: Any) {
-        let userImgName: String = "user_photo.png"
-        saveImage(imageName: userImgName, sourceImg: ui_userImage.image!)
+        var isValid: Bool = true
         
-        if let user = UserData.getInstance().getUser() {
-            let userTemp: User = User()
-            userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
-            
-            UserData.getInstance().updateUser(user: userTemp)
-            
+        if ui_userNickname.resolveCheckList() {
+            ui_userNickname.hideError()
+            ui_nickname_error_label.isHidden = true
         } else {
-            let userTemp = User()
-            userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
-            
-            UserData.getInstance().updateUser(user: userTemp)
+            ui_userNickname.showError(border: 2, cornerRadius: 5)
+            ui_nickname_error_label.text = Values().textErrorString
+            ui_nickname_error_label.isHidden = false
+            isValid = false
         }
         
-        UserData.getInstance().isLogged = true
-        Switcher.updateRootVC()
+        if ui_userMailField.resolveCheckList() {
+            ui_userMailField.hideError()
+            ui_mail_error_label.isHidden = true
+        } else {
+            ui_userMailField.showError(border: 2, cornerRadius: 5)
+            ui_mail_error_label.text = Values().textErrorString
+            ui_mail_error_label.isHidden = false
+            isValid = false
+        }
+        
+        if ui_userPasswordField.resolveCheckList() {
+            ui_userPasswordField.hideError()
+            ui_password_error_label.isHidden = true
+        } else {
+            ui_userPasswordField.showError(border: 2, cornerRadius: 5)
+            ui_password_error_label.text = Values().textErrorString
+            ui_password_error_label.isHidden = false
+            isValid = false
+        }
+        
+        if ui_userPasswordConfirmField.resolveCheckList() {
+            ui_userPasswordConfirmField.hideError()
+            ui_password_error_label.isHidden = true
+        } else {
+            ui_userPasswordConfirmField.showError(border: 2, cornerRadius: 5)
+            ui_password_error_label.text = Values().textErrorString
+            ui_password_error_label.isHidden = false
+            isValid = false
+        }
+        
+        if isValid {
+            let userImgName: String = "user_photo.png"
+            saveImage(imageName: userImgName, sourceImg: ui_userImage.image!)
+            
+            if let user = UserData.getInstance().getUser() {
+                let userTemp: User = User()
+                userTemp.createUser(userId: user._userId, userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
+                
+                UserData.getInstance().updateUser(user: userTemp)
+                
+            } else {
+                let userTemp = User()
+                userTemp.createUser(userId: Int(Date().timeIntervalSince1970), userName: ui_userNickname.text!, userMail: ui_userMailField.text!, userPassword: ui_userPasswordField.text!, userImagePath: userImgName)
+                
+                UserData.getInstance().updateUser(user: userTemp)
+            }
+            
+            UserData.getInstance().isLogged = true
+            Switcher.updateRootVC()
 
-        //dismiss(animated: true, completion: nil)
+            //dismiss(animated: true, completion: nil)
+        }
     }
     @IBAction func changePhotoButtonClicked(_ sender: Any) {
         let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

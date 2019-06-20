@@ -24,6 +24,7 @@ class Values {
     let modifyPlantTitleString: String = NSLocalizedString("Modify a plant", comment: "titre de la vue de modification de plante")
     let addPlantButtonString: String = NSLocalizedString("Add", comment: "titre du bouton d'ajout de plante")
     let modifyPlantButtonString: String = NSLocalizedString("Modify", comment: "titre du bouton de modification de plante")
+    let textErrorString: String = NSLocalizedString("You need to fill this field", comment: "message d'erreur du champ text basique")
     
     let isLoggedUserDefaultName: String = "ISLOGGED"
     let wateringNotificationsUserDefaultName: String = "WATERING_NOTIFICATIONS"

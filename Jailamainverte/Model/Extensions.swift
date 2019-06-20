@@ -12,6 +12,7 @@ extension UIColor {
     struct ThemeColors {
         static var bordeaux: UIColor  { return UIColor(red: 144/255, green: 38/255, blue: 86/255, alpha: 1) }
         static var green: UIColor  { return UIColor(red: 67/255, green: 160/255, blue: 71/255, alpha: 1) }
+        static var red: UIColor  { return UIColor(red: 255/255, green: 55/255, blue: 35/255, alpha: 1) }
     }
 }
 
@@ -43,6 +44,24 @@ extension UITextField {
     func setButtonEnableOff() {
         self.isEnabled = false
         self.resignFirstResponder()
+    }
+    func showError (border: CGFloat, cornerRadius: CGFloat) {
+        self.layer.borderColor = UIColor.ThemeColors.red.cgColor
+        self.layer.borderWidth = border
+        self.layer.cornerRadius = cornerRadius
+        self.borderStyle = .roundedRect
+    }
+    func hideError () {
+        self.layer.borderWidth = 0
+        self.layer.cornerRadius = 0
+    }
+    func checkText () -> Bool {
+        if let text = self.text,
+            text.count > 0 {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

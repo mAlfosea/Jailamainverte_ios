@@ -26,7 +26,7 @@ class UserData {
         
         var realmConfig = Realm.Configuration.defaultConfiguration
         realmConfig.deleteRealmIfMigrationNeeded = true
-        //print(realmConfig.fileURL as Any)
+        print(realmConfig.fileURL as Any)
         Realm.Configuration.defaultConfiguration = realmConfig
         
         _realmManager = RealmManager()
