@@ -12,8 +12,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
 
     @IBOutlet weak var ui_userPhotoImage: UIImageView!
-    @IBOutlet weak var ui_userNameField: UITextField!
-    @IBOutlet weak var ui_userMailField: UITextField!
+    @IBOutlet weak var ui_userNameField: CheckedTextField!
+    @IBOutlet weak var ui_userMailField: CheckedTextField!
     @IBOutlet weak var ui_notificationsSwitch: UISwitch!
     @IBOutlet weak var ui_saveButton: UIButton!
     @IBOutlet weak var ui_logoutButton: UIButton!
@@ -43,6 +43,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         ui_userNameField.delegate = self
         ui_userMailField.delegate = self
+        ui_userNameField.addEmptyCheck()
+        ui_userMailField.addEmptyCheck()
         
         showInfos()
     }
@@ -128,6 +130,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else if textField == ui_userMailField {
             _userMail = textField.text
         }
+        textField.setButtonEnableOff()
         textField.resignFirstResponder()
         return true
     }
@@ -135,6 +138,30 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         _userNotification = ui_notificationsSwitch.isOn
     }
     @IBAction func saveButtonClicked(_ sender: Any) {
+        var isValid: Bool = true
+        if ui_userNameField.resolveCheckList() {
+            ui_userNameField.hideError()
+            //ui_mail_error_label.isHidden = true
+        } else {
+            ui_userNameField.showError(border: 2, cornerRadius: 5)
+            //ui_mail_error_label.text = Values().textErrorString
+            //ui_mail_error_label.isHidden = false
+            isValid = false
+        }
+        if ui_userMailField.resolveCheckList() {
+            ui_userMailField.hideError()
+            //ui_mail_error_label.isHidden = true
+        } else {
+            ui_userMailField.showError(border: 2, cornerRadius: 5)
+            //ui_mail_error_label.text = Values().textErrorString
+            //ui_mail_error_label.isHidden = false
+            isValid = false
+        }
+        
+        guard isValid else {
+            return
+        }
+        
         let userImgName: String = "user_photo.png"
         saveImage(imageName: userImgName, sourceImg: ui_userPhotoImage.image!)
         

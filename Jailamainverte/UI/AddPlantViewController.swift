@@ -8,10 +8,10 @@
 
 import UIKit
 
-class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate  {
+class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ImagePickerDelegate  {
     
     @IBOutlet weak var ui_plant_img: UIImageView!
-    @IBOutlet weak var ui_plant_name_label: UITextField!
+    @IBOutlet weak var ui_plant_name_label: CheckedTextField!
     @IBOutlet weak var ui_plant_family_field: UITextField!
     @IBOutlet weak var ui_last_watering_field: UITextField!
     @IBOutlet weak var ui_watering_hour_field: UITextField!
@@ -36,7 +36,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let hourPicker = UIDatePicker()
     let familyPicker = UIPickerView()
     
-    var _imagePicker: UIImagePickerController!
+    var _imagePicker: ImagePickerManager?
     var _imageToSave:UIImage? = nil
     
     override func viewDidLoad() {
@@ -50,6 +50,7 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
         familyPicker.delegate = self
         familyPicker.dataSource = self
         ui_plant_name_label.delegate = self
+        ui_plant_name_label.addEmptyCheck()
         
         ui_change_photo_button.layer.cornerRadius = 5
         ui_plant_img.layer.cornerRadius = 5
@@ -115,6 +116,21 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @IBAction func addButtonSubmit(_ sender: Any) {
+        var isValid: Bool = true
+        if ui_plant_name_label.resolveCheckList() {
+            ui_plant_name_label.hideError()
+            //ui_mail_error_label.isHidden = true
+        } else {
+            ui_plant_name_label.showError(border: 2, cornerRadius: 5)
+            //ui_mail_error_label.text = Values().textErrorString
+            //ui_mail_error_label.isHidden = false
+            isValid = false
+        }
+        
+        guard isValid else {
+            return
+        }
+        
         if _isAddingPlant {
             let plantImgName: String = "plant_\(Date().timeIntervalSince1970).png"
             saveImage(imageName: plantImgName, sourceImg: ui_plant_img.image!)
@@ -181,51 +197,12 @@ class AddPlantViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     @IBAction func changePhotoButtonClicked(_ sender: Any) {
-        let changePictureAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let takePictureFromCamera = UIAlertAction(title: Values().selectPictureFromCameraString, style: .default) { (_) in
-            self.callImagePicker(state: true)
-        }
-        takePictureFromCamera.createAlertActionImage(imageName: "camera")
-        changePictureAlert.addAction(takePictureFromCamera)
-        
-        let takePictureFromLibrary = UIAlertAction(title: Values().selectPictureFromLibraryString, style: .default) { (_) in
-            self.callImagePicker(state: false)
-        }
-        takePictureFromLibrary.createAlertActionImage(imageName: "picture")
-        changePictureAlert.addAction(takePictureFromLibrary)
-        
-        changePictureAlert.addAction(UIAlertAction(title: Values().cancelButtonString, style: .cancel, handler: nil))
-        changePictureAlert.view.tintColor = UIColor.black
-        
-        present(changePictureAlert, animated: true, completion: nil)
+        _imagePicker = ImagePickerManager()
+        _imagePicker?.createImagePickerAlert(presenter: self, delegate: self)
     }
     
-    func callImagePicker(state: Bool) {
-        _imagePicker = UIImagePickerController()
-        _imagePicker.delegate = self
-        
-        if state {
-            if UIImagePickerController.isSourceTypeAvailable(.camera)  {
-                _imagePicker.allowsEditing = true
-                _imagePicker.sourceType = .camera
-            }
-        } else {
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)  {
-                _imagePicker.allowsEditing = true
-                _imagePicker.sourceType = .photoLibrary
-            }
-        }
-        present(_imagePicker, animated: true, completion: nil)
-    }
-  
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        _imagePicker.dismiss(animated: true, completion: nil)
-        if let image = info[.editedImage] as? UIImage {
-            ui_plant_img.setImageScaleToFill(image: image)
-        }
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        _imagePicker.dismiss(animated: true, completion: nil)
+    func imagePickerDidFinish(image: UIImage) {
+        ui_plant_img.setImageScaleToFill(image: image)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
